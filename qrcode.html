@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>QR Mesin — Maintenance</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="manifest" href="manifest.webmanifest" />
+<meta name="theme-color" content="#14283B" />
+<link rel="icon" type="image/png" href="assets/icon-192.png" />
+<link rel="apple-touch-icon" href="assets/icon-192.png" />
+<link rel="stylesheet" href="css/style.css" />
+</head>
+<body data-page="qrcode" data-module="qrcode">
+
+<div class="app-shell">
+
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-head">
+      <div class="sidebar-brand">
+        <img src="assets/logo.png" alt="Savoria Kreasi Rasa" />
+        <div>
+          <p class="sidebar-brand-name">Savoria</p>
+          <p class="sidebar-brand-sub">Maintenance app</p>
+        </div>
+      </div>
+    </div>
+    <a href="dashboard.html" class="sidebar-link" data-module="dashboard">Dashboard</a>
+      <a href="trend.html" class="sidebar-link" data-module="trend">Trend</a>
+      <a href="laporan.html" class="sidebar-link" data-module="reports">Report</a>
+      <a href="pm.html" class="sidebar-link" data-module="utility">Utility</a>
+      <a href="production.html" class="sidebar-link" data-module="production">Production</a>
+      <a href="lubrication.html" class="sidebar-link" data-module="lubrication">Lubrication</a>
+      <a href="qrcode.html" class="sidebar-link" data-module="qrcode">QR Mesin</a>
+      <a href="riwayat-mesin.html" class="sidebar-link" data-module="riwayat_mesin">Riwayat Mesin</a>
+      <a href="draft.html" class="sidebar-link" data-module="draft">Draft</a>
+      <a href="kelola-user.html" class="sidebar-link" data-module="kelola_user">Kelola User</a>
+      <a href="online.html" class="sidebar-link" data-module="online">Online Sekarang</a>
+      <a href="export-data.html" class="sidebar-link" data-module="export_data">Export Data</a>
+      <a href="bersihkan-data.html" class="sidebar-link" data-module="bersihkan_data">Bersihkan Data</a>
+      <a href="audit-log.html" class="sidebar-link" data-module="audit_log">Audit Log</a>
+    </div>
+  </aside>
+
+  <div class="app-main">
+
+    <div class="topbar no-print">
+      <div class="topbar-inner">
+        <div class="topbar-logo">
+          <img src="assets/logo.png" alt="Savoria Kreasi Rasa" />
+        </div>
+        <div class="topbar-text">
+          <span class="topbar-title">QR Mesin</span>
+          <span class="topbar-sub">Cetak &amp; tempel QR di tiap mesin untuk akses cepat checklist PM / Production</span>
+        </div>
+        <button type="button" class="menu-btn" id="btn-menu" aria-label="Buka menu">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+
+    <main class="wrap wrap-wide">
+
+      <div class="dash-header no-print">
+        <div>
+          <p class="dash-header-title">QR Mesin</p>
+          <p class="dash-header-date">Scan QR di mesin → checklist PM Utility / Production langsung terbuka</p>
+        </div>
+        <div class="dash-actions">
+          <button type="button" id="btn-print" class="dash-action-btn dash-action-primary">🖶 Cetak semua</button>
+        </div>
+      </div>
+
+      <!-- FILTER -->
+      <section class="filter-card no-print">
+        <div class="filter-row">
+          <div class="filter-field">
+            <label class="field-label" for="f-jenis">Jenis</label>
+            <select id="f-jenis">
+              <option value="">Semua jenis</option>
+              <option value="utility">Utility</option>
+              <option value="production">Production</option>
+            </select>
+          </div>
+          <div class="filter-field">
+            <label class="field-label" for="f-cari">Cari mesin / equipment</label>
+            <input type="text" id="f-cari" placeholder="Ketik nama mesin atau equipment…" />
+          </div>
+        </div>
+      </section>
+
+      <p class="form-error no-print" id="qr-error" hidden></p>
+      <p class="qr-count no-print" id="qr-count">Memuat data…</p>
+
+      <div class="qr-print-header">
+        <img src="assets/logo.png" alt="Savoria Kreasi Rasa" />
+        <div>
+          <p class="qr-print-title">QR Code Mesin — Savoria Kreasi Rasa</p>
+          <p class="qr-print-sub">Scan untuk membuka checklist PM / Production mesin ini</p>
+        </div>
+      </div>
+
+      <div class="qr-grid" id="qr-grid"></div>
+
+    </main>
+
+  </div>
+
+</div>
+
+<div class="sidebar-overlay" id="sidebar-overlay"></div>
+
+<script src="js/i18n.js"></script>
+<script src="js/sidebar.js"></script>
+<script type="module" src="js/auth.js"></script>
+<script type="module" src="js/qrcode-page.js"></script>
+<script src="js/pwa.js"></script>
+</body>
+</html>

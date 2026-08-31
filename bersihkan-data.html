@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Bersihkan Data — Maintenance App</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="manifest" href="manifest.webmanifest" />
+<meta name="theme-color" content="#14283B" />
+<link rel="icon" type="image/png" href="assets/icon-192.png" />
+<link rel="apple-touch-icon" href="assets/icon-192.png" />
+<link rel="stylesheet" href="css/style.css" />
+</head>
+<body data-page="bersihkan-data" data-module="bersihkan_data">
+
+<div class="app-shell">
+
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-head">
+      <div class="sidebar-brand">
+        <img src="assets/logo.png" alt="Savoria Kreasi Rasa" />
+        <div>
+          <p class="sidebar-brand-name">Savoria</p>
+          <p class="sidebar-brand-sub">Maintenance app</p>
+        </div>
+      </div>
+    </div>
+    <div class="sidebar-nav">
+      <a href="dashboard.html" class="sidebar-link" data-module="dashboard">Dashboard</a>
+      <a href="trend.html" class="sidebar-link" data-module="trend">Trend</a>
+      <a href="laporan.html" class="sidebar-link" data-module="reports">Report</a>
+      <a href="pm.html" class="sidebar-link" data-module="utility">Utility</a>
+      <a href="production.html" class="sidebar-link" data-module="production">Production</a>
+      <a href="lubrication.html" class="sidebar-link" data-module="lubrication">Lubrication</a>
+      <a href="qrcode.html" class="sidebar-link" data-module="qrcode">QR Mesin</a>
+      <a href="riwayat-mesin.html" class="sidebar-link" data-module="riwayat_mesin">Riwayat Mesin</a>
+      <a href="draft.html" class="sidebar-link" data-module="draft">Draft</a>
+      <a href="kelola-user.html" class="sidebar-link" data-module="kelola_user">Kelola User</a>
+      <a href="online.html" class="sidebar-link" data-module="online">Online Sekarang</a>
+      <a href="export-data.html" class="sidebar-link" data-module="export_data">Export Data</a>
+      <a href="bersihkan-data.html" class="sidebar-link" data-module="bersihkan_data">Bersihkan Data</a>
+      <a href="audit-log.html" class="sidebar-link" data-module="audit_log">Audit Log</a>
+    </div>
+  </aside>
+
+  <div class="app-main">
+
+    <div class="topbar">
+      <div class="topbar-inner">
+        <div class="topbar-logo">
+          <img src="assets/logo.png" alt="Savoria Kreasi Rasa" />
+        </div>
+        <div class="topbar-text">
+          <span class="topbar-title">Bersihkan Data</span>
+          <span class="topbar-sub">Hapus permanen laporan/checklist lama yang sudah approved</span>
+        </div>
+        <button type="button" class="menu-btn" id="btn-menu" aria-label="Buka menu">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+
+    <main class="wrap wrap-wide">
+
+      <p class="bersihkan-warning">
+        ⚠️ Data yang dihapus di sini <strong>hilang permanen</strong> — termasuk foto-fotonya di storage.
+        Tidak bisa dikembalikan. Data berstatus <strong>Draft</strong> sengaja tidak bisa dihapus lewat halaman ini
+        (masih perlu direview SPV).
+      </p>
+
+      <section class="filter-card">
+        <div class="filter-row">
+          <div class="filter-field">
+            <label class="field-label" for="f-jenis">Jenis data</label>
+            <select id="f-jenis">
+              <option value="laporan">Laporan</option>
+              <option value="pm">PM Checklist</option>
+              <option value="production">Production Checklist</option>
+            </select>
+          </div>
+          <div class="filter-field">
+            <label class="field-label" for="f-status">Status</label>
+            <select id="f-status">
+              <option value="approved">Approved</option>
+              <option value="rejected">Rejected</option>
+              <option value="approved,rejected">Approved &amp; Rejected</option>
+            </select>
+          </div>
+          <div class="filter-field">
+            <label class="field-label" for="f-sebelum">Direview sebelum tanggal</label>
+            <input type="date" id="f-sebelum" />
+          </div>
+        </div>
+        <div class="filter-actions">
+          <button type="button" id="btn-cari" class="btn-secondary btn-inline">Cari data</button>
+        </div>
+      </section>
+
+      <div class="rekap-toolbar">
+        <p class="rekap-count" id="hasil-count">Pilih jenis data &amp; tanggal, lalu klik "Cari data".</p>
+        <button type="button" id="btn-hapus-terpilih" class="btn-export btn-hapus" disabled>Hapus data terpilih</button>
+      </div>
+
+      <p class="form-error" id="hasil-error" hidden></p>
+
+      <div class="table-wrap">
+        <table id="hasil-table">
+          <thead>
+            <tr>
+              <th><input type="checkbox" id="chk-all" /></th>
+              <th>Tanggal</th>
+              <th>Detail</th>
+              <th>Status</th>
+              <th>Direview oleh</th>
+              <th>Jumlah foto</th>
+            </tr>
+          </thead>
+          <tbody id="hasil-tbody">
+            <tr><td colspan="6" class="table-empty">Belum ada data dicari.</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+    </main>
+
+  </div>
+
+</div>
+
+<div class="sidebar-overlay" id="sidebar-overlay"></div>
+
+<!-- MODAL KONFIRMASI HAPUS -->
+<div class="pm-detail-overlay" id="confirm-overlay" hidden>
+  <div class="pm-detail-card reject-modal-card">
+    <button type="button" class="pm-detail-close" id="confirm-close" aria-label="Tutup">&times;</button>
+    <p class="pm-detail-title">Hapus permanen?</p>
+    <p class="pm-detail-sub" id="confirm-sub"></p>
+    <p class="field-error" id="confirm-error" hidden></p>
+    <button type="button" id="confirm-hapus" class="btn-submit reject-confirm-btn">Ya, hapus permanen</button>
+  </div>
+</div>
+
+<script src="js/i18n.js"></script>
+<script src="js/sidebar.js"></script>
+<script type="module" src="js/auth.js"></script>
+<script type="module" src="js/bersihkan-data.js"></script>
+<script src="js/pwa.js"></script>
+</body>
+</html>

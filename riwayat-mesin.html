@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Riwayat Mesin — Maintenance</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="manifest" href="manifest.webmanifest" />
+<meta name="theme-color" content="#14283B" />
+<link rel="icon" type="image/png" href="assets/icon-192.png" />
+<link rel="apple-touch-icon" href="assets/icon-192.png" />
+<link rel="stylesheet" href="css/style.css" />
+</head>
+<body data-page="riwayat-mesin" data-module="riwayat_mesin">
+
+<div class="app-shell">
+
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-head">
+      <div class="sidebar-brand">
+        <img src="assets/logo.png" alt="Savoria Kreasi Rasa" />
+        <div>
+          <p class="sidebar-brand-name">Savoria</p>
+          <p class="sidebar-brand-sub">Maintenance app</p>
+        </div>
+      </div>
+    </div>
+    <a href="dashboard.html" class="sidebar-link" data-module="dashboard">Dashboard</a>
+      <a href="trend.html" class="sidebar-link" data-module="trend">Trend</a>
+      <a href="laporan.html" class="sidebar-link" data-module="reports">Report</a>
+      <a href="pm.html" class="sidebar-link" data-module="utility">Utility</a>
+      <a href="production.html" class="sidebar-link" data-module="production">Production</a>
+      <a href="lubrication.html" class="sidebar-link" data-module="lubrication">Lubrication</a>
+      <a href="qrcode.html" class="sidebar-link" data-module="qrcode">QR Mesin</a>
+      <a href="riwayat-mesin.html" class="sidebar-link" data-module="riwayat_mesin">Riwayat Mesin</a>
+      <a href="draft.html" class="sidebar-link" data-module="draft">Draft</a>
+      <a href="kelola-user.html" class="sidebar-link" data-module="kelola_user">Kelola User</a>
+      <a href="online.html" class="sidebar-link" data-module="online">Online Sekarang</a>
+      <a href="export-data.html" class="sidebar-link" data-module="export_data">Export Data</a>
+      <a href="bersihkan-data.html" class="sidebar-link" data-module="bersihkan_data">Bersihkan Data</a>
+      <a href="audit-log.html" class="sidebar-link" data-module="audit_log">Audit Log</a>
+    </div>
+  </aside>
+
+  <div class="app-main">
+
+    <div class="topbar">
+      <div class="topbar-inner">
+        <div class="topbar-logo">
+          <img src="assets/logo.png" alt="Savoria Kreasi Rasa" />
+        </div>
+        <div class="topbar-text">
+          <span class="topbar-title">Riwayat Mesin</span>
+          <span class="topbar-sub">Histori laporan satu equipment dalam satu timeline</span>
+        </div>
+        <button type="button" class="menu-btn" id="btn-menu" aria-label="Buka menu">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+
+    <main class="wrap wrap-wide">
+
+      <div class="dash-header">
+        <div>
+          <p class="dash-header-title">Riwayat Mesin</p>
+          <p class="dash-header-date">Pilih equipment untuk lihat semua histori laporannya</p>
+        </div>
+      </div>
+
+      <!-- PILIH EQUIPMENT -->
+      <section class="filter-card">
+        <div class="filter-row">
+          <div class="filter-field">
+            <label class="field-label" for="rw-select-area">Area</label>
+            <select id="rw-select-area">
+              <option value="">Pilih area</option>
+            </select>
+          </div>
+          <div class="filter-field">
+            <label class="field-label" for="rw-select-mesin">Mesin</label>
+            <select id="rw-select-mesin" disabled>
+              <option value="">Pilih area dulu</option>
+            </select>
+          </div>
+          <div class="filter-field">
+            <label class="field-label" for="rw-select-equipment">Equipment</label>
+            <select id="rw-select-equipment" disabled>
+              <option value="">Pilih mesin dulu</option>
+            </select>
+          </div>
+        </div>
+        <div class="filter-row">
+          <div class="filter-field">
+            <label class="field-label" for="rw-tanggal-dari">Dari tanggal</label>
+            <input type="date" id="rw-tanggal-dari" />
+          </div>
+          <div class="filter-field">
+            <label class="field-label" for="rw-tanggal-sampai">Sampai tanggal</label>
+            <input type="date" id="rw-tanggal-sampai" />
+          </div>
+        </div>
+        <div class="filter-actions">
+          <button type="button" id="btn-tampilkan" class="btn-secondary btn-inline" disabled>Tampilkan riwayat</button>
+          <button type="button" id="btn-reset" class="btn-link-btn">Reset</button>
+        </div>
+      </section>
+
+      <p class="form-error" id="rw-error" hidden></p>
+
+      <!-- Kondisi awal: belum pilih equipment -->
+      <p class="table-empty" id="rw-placeholder">Pilih area → mesin → equipment di atas, lalu klik "Tampilkan riwayat".</p>
+
+      <div id="rw-result" hidden>
+
+        <!-- HEADER EQUIPMENT + QUICK STATS -->
+        <section class="rw-header-card">
+          <div class="rw-header-main">
+            <p class="rw-header-equipment" id="rw-equipment-name">–</p>
+            <p class="rw-header-meta" id="rw-equipment-meta">–</p>
+          </div>
+          <a href="#" id="rw-btn-lapor" class="dash-action-btn dash-action-primary">+ Laporan baru mesin ini</a>
+        </section>
+
+        <section class="dash-stats rw-stats" id="rw-stats">
+          <div class="dash-stat-card">
+            <span class="dash-stat-label">Total laporan</span>
+            <span class="dash-stat-value" id="rw-stat-total">–</span>
+          </div>
+          <div class="dash-stat-card dash-stat-breakdown">
+            <span class="dash-stat-label">Breakdown</span>
+            <span class="dash-stat-value" id="rw-stat-breakdown">–</span>
+          </div>
+          <div class="dash-stat-card dash-stat-maintenance">
+            <span class="dash-stat-label">Maintenance</span>
+            <span class="dash-stat-value" id="rw-stat-maintenance">–</span>
+          </div>
+          <div class="dash-stat-card dash-stat-running">
+            <span class="dash-stat-label">Running</span>
+            <span class="dash-stat-value" id="rw-stat-running">–</span>
+          </div>
+          <div class="dash-stat-card">
+            <span class="dash-stat-label">Laporan terakhir</span>
+            <span class="dash-stat-value rw-stat-last" id="rw-stat-last">–</span>
+          </div>
+        </section>
+
+        <!-- TIMELINE -->
+        <section class="rw-timeline-wrap">
+          <p class="dash-recent-title rw-timeline-title">Timeline laporan</p>
+          <div id="rw-timeline" class="rw-timeline"></div>
+        </section>
+
+      </div>
+
+    </main>
+
+  </div>
+
+</div>
+
+<div class="sidebar-overlay" id="sidebar-overlay"></div>
+
+<script src="js/i18n.js"></script>
+<script src="js/sidebar.js"></script>
+<script type="module" src="js/auth.js"></script>
+<script type="module" src="js/riwayat-mesin.js"></script>
+<script src="js/pwa.js"></script>
+</body>
+</html>

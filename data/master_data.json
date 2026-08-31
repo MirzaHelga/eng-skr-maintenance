@@ -1,0 +1,750 @@
+{
+  "BOILED CANDY (FOX'S) FILLING PACKING AREA": {
+    "FILLING BAGGER 1": [
+      "INCLINE CONVEYOR",
+      "WEIGHER MULTIHEAD",
+      "GWOLF MACHINE",
+      "OUTLET CONVEYOR",
+      "CHECK WEIGHER",
+      "PACKING CONVEYOR",
+      "TAPPING MACHINE BACKPACK",
+      "ROLLER CONVEYOR",
+      "CASE WEIGHER",
+      "BAGGER 1 AREA",
+      "CODING UNIT 1"
+    ],
+    "SINGLE WRAPPER": [
+      "FLOW WRAPP 4 MC",
+      "EMPTY VACUUM 4",
+      "OUTLET CONVEYOR 4",
+      "FLOW WRAPP 5 MC",
+      "EMPTY VACUUM 5",
+      "OUTLET CONVEYOR 5",
+      "FLOW WRAPP 6 MC",
+      "EMPTY VACUUM 6",
+      "OUTLET CONVEYOR 6",
+      "EMPTY VACUUM 1",
+      "EMPTY VACUUM 2",
+      "EMPTY VACUUM 3",
+      "FLOW WRAPP 1 MC",
+      "FLOW WRAPP 2 MC",
+      "FLOW WRAPP 3 MC",
+      "FLOW WRAPP 7 MC",
+      "FLOW WRAPP 8 MC",
+      "FLOW WRAPP 9 MC",
+      "FLOW WRAPP 10 MC"
+    ],
+    "TWIST WRAPPER": [
+      "DEVIDER CONVEYOR",
+      "TWIST WRAPPER AREA",
+      "TWIST MACHINE 4",
+      "INCLINE CONVEYOR",
+      "TWIST MACHINE 1",
+      "TWIST MACHINE 2",
+      "TWIST MACHINE 3",
+      "OUTLET CONVEYOR 1",
+      "OUTLET CONVEYOR 2",
+      "OUTLET CONVEYOR 3",
+      "MAIN CONVEYOR",
+      "BLOWER"
+    ],
+    "FILLING BAGGER 3": [
+      "OULET CONVEYOR 2",
+      "TAPE SEALER",
+      "CASE WEIGHER",
+      "ROLLER CONVEYOR",
+      "BAGGER 3 AREA",
+      "BUCKET ELEVATOR",
+      "BLOWER 9",
+      "MULTIHEAD WEIGHER",
+      "FILLER HEAD 1",
+      "FILLER HEAD 2",
+      "CHECK WEIGHER 1",
+      "CHECK WEIGHER 2",
+      "OUTLET CONVEYOR 1"
+    ],
+    "CAN SEAMER": [
+      "CONVEYOR (MODULAR, INDOSA)",
+      "WEIGHER MULTIHEAD  (YAMATO INDOSA)",
+      "V-FILLER  (PHLOX CAN FILL)",
+      "TRANSFER CONVEYOR",
+      "CHECK WEIGHER",
+      "INDOSA SEAMER",
+      "CODING INK JET",
+      "TAPE SEALER",
+      "PACKING CONVEYOR",
+      "AREA",
+      "SEAMING MACHINE",
+      "FILLING & SORTING",
+      "MAIN CONTROL PANEL"
+    ],
+    "FILLING BAGGER 2": [
+      "BAGGER 2 AREA",
+      "MIXING HOPPER",
+      "BUCKET ELEVATOR",
+      "WEIGHER MULTIHEAD",
+      "V-FILLER HEAD 1",
+      "CHECK WEIGHER 1",
+      "OUTLET INCLINE CONVEYOR",
+      "V-FILLER HEAD 2",
+      "CHECK WEIGHER 2",
+      "OUTLET CONVEYOR 1",
+      "TAPE SEALER",
+      "CASE WEIGHER",
+      "ROLLER CONVEYOR",
+      "CODING UNIT 2"
+    ],
+    "FILLING BAGGER 4": [
+      "BAGGER 4 AREA"
+    ],
+    "MANUAL BULK": [
+      "SORTING",
+      "FILLING & WEIGHTING",
+      "SEALING",
+      "FILLING HOPER & SORTING"
+    ]
+  },
+  "BOILED CANDY (FOX'S) PROCESS AREA": {
+    "REWORK TREATMENT": [
+      "REWORK DISOLVING TANK 1",
+      "REWORK DISOLVING TANK 2",
+      "FILTER PRESS REWORK",
+      "FILTRATION TANK",
+      "REWORK TANK",
+      "REWORK CRUSHER",
+      "ROTARY FILTER",
+      "DICALITE DISOLVING TANK",
+      "VACUUM TANK"
+    ],
+    "PROCESS LINE 1": [
+      "COOL MIX",
+      "COOKER UNIT",
+      "DEPOSITOR UNIT",
+      "COOLING TUNNEL",
+      "PHE 1",
+      "COOKER 1",
+      "DEPOSITOR 1",
+      "COOLING TUNNEL 1",
+      "SAFELINE MD 1",
+      "MAIN CONTROL PANEL 1",
+      "RESERVOIR TANK 1",
+      "RCA. INSPECTION 1",
+      "FEED PUMP",
+      "DISCHARGE PUMP",
+      "AREA"
+    ],
+    "TIPPING SUGAR": [
+      "Tipping Big Bag",
+      "Tipping Small Bag",
+      "Dissolving Tank",
+      "Holding Tank",
+      "Rework Tank",
+      "SUGAR ROLLER CONVEYOR",
+      "SUGAR BIG BAG",
+      "SUGAR SMALL BAG",
+      "COASTER BIG BAG",
+      "PRP CHECKING STATION"
+    ],
+    "PROCESS LINE 2": [
+      "COOL MIX",
+      "COOKER UNIT",
+      "DEPOSITOR UNIT",
+      "COOLING TUNNEL",
+      "PHE 2",
+      "COOKER 2",
+      "DEPOSITOR 2",
+      "COOLING TUNNEL 2",
+      "SAFELINE MD 2",
+      "MAIN CONTROL PANEL 2",
+      "RESERVOIR TANK 2",
+      "RCA. INSPECTION 2",
+      "FEED PUMP",
+      "DISCHARGE PUMP",
+      "AREA"
+    ],
+    "PROCESS LINE 3": [
+      "COOL MIX",
+      "COOKER UNIT",
+      "DEPOSITOR UNIT",
+      "COOLING TUNNEL",
+      "COOLMIX TANK",
+      "COOLMIX AGITATOR",
+      "RECERVOAR TANK",
+      "PHE 3",
+      "FEED PUMP",
+      "DISCHARGE PUMP",
+      "COOKER 3",
+      "MOVEABLE REWORK TANK",
+      "MIXING UNIT",
+      "DEPOSITOR 3",
+      "COOLING TUNNEL 3",
+      "SAFELINE MD",
+      "MAIN CONTROL PANEL 3",
+      "RESERVOIR TANK 3",
+      "RCA. INSPECTION 3",
+      "AREA",
+      "COFFEE SOLUTION DISOLVING TANK",
+      "COFFEE SOLUTION PREPARATION TANK"
+    ],
+    "PROCESS LINE 4": [
+      "AUTO FEED UNIT",
+      "COOKER UNIT",
+      "DEPOSITOR UNIT",
+      "COOLING TUNNEL",
+      "RESERVOIR TANK",
+      "FLASH VESSEL",
+      "FEED PUMP",
+      "DISCHARGE PUMP 1",
+      "DISCHARGE PUMP 2",
+      "AUTO FEED",
+      "PHE 4",
+      "COOKER 4",
+      "DEPOSITOR 4",
+      "COOLING TUNNEL 4",
+      "SAFELINE MD",
+      "MAIN CONTROL PANEL 4",
+      "INCORPORATOR",
+      "FLAVOR PUMP",
+      "COLOR PUMP",
+      "REWORK TANK",
+      "RCA. INSPECTION 4",
+      "AREA",
+      "COLLECTING CHAMBER"
+    ],
+    "FLAVOR PREPARATION": [
+      "MICROWAVE",
+      "FLAVOUR PREPARATION RACK",
+      "EKSTRAK PREPARATION RACK",
+      "CLEANING STATION FLAV PREP RACK",
+      "MEJA PC",
+      "COLOR TROLLY"
+    ],
+    "GLUCOSE HANDLING": [
+      "RECEIVING GLUCOSE PUMP",
+      "GLUCOSE TANK 1",
+      "GLUCOSE TANK 2",
+      "GLUCOSE TRANSFER PUMP"
+    ]
+  },
+  "BUILDING": {
+    "BUILDING GENERAL OFFICE": [
+      "Gents Toilet 1",
+      "Ladies Toilet 1",
+      "Server Room",
+      "Pantry Room",
+      "Integrity Room",
+      "Main Office Room",
+      "Visitor room",
+      "Gents Toilet 2",
+      "Ladies Toilet 2",
+      "TERAS BUILDING"
+    ],
+    "BUILDING CANTEEN": [
+      "AREA MASAK",
+      "SUMPIT CANTEEN",
+      "AREA PENYAJIAN",
+      "AREA PENCUCIAN",
+      "AREA MAKAN",
+      "GUDANG",
+      "CUCI TANGAN LUAR KANTIN",
+      "AREA BELAKANG KANTIN"
+    ],
+    "BUILDING MUSHOLA": [
+      "AREA WUDHU",
+      "AREA DALAM MUSHOLA"
+    ],
+    "BUILDING CLINIC": [
+      "RUANG KLINIK",
+      "MOTHER ROOM"
+    ],
+    "BUILDING SECURITY GUARD": [
+      "AREA POS SECURITY"
+    ],
+    "BUILDING LAUNDRY": [
+      "POWER PANEL",
+      "WASHING MACHINE 1",
+      "WASHING MACHINE 2",
+      "DRYER MACHINE"
+    ],
+    "BUILDING LOCKER": [
+      "LOCKER GENTS 1 (R/F)",
+      "LOCKER GENTS 2 (SPV)",
+      "LADIES LOCKER 1 (SPV)",
+      "LADIES LOCKER 2 (R/F)",
+      "TOILET GENTS LOCKER 1 (R/F)",
+      "TOILET GENTS LOCKER 2 (SPV)",
+      "TOILET LADIES LOCKER 1 (SPV)",
+      "TOILET LADIES LOCKER 2 (R/F)",
+      "GUDANG ISS"
+    ],
+    "BUILDING QA": [
+      "DMAIC ROOM",
+      "TASTING ROOM",
+      "EXHAUST CHIMNEY",
+      "MICROLAB ROOM",
+      "GENERAL LAB ROOM",
+      "KEEPING QUALITY ROOM",
+      "OFFICE"
+    ],
+    "BUILDING MICROBIOLOGY": [
+      "POWER PANEL 10",
+      "AUTOCLAVE"
+    ],
+    "BUILDING PROD DRYMIX": [
+      "POWER PANEL 11",
+      "INFORMTN SYSTEM 4",
+      "SUMPIT 4"
+    ],
+    "BUILDING PROD EXTRUSION": [
+      "POWER PANEL 12",
+      "INFORMTN SYSTEM 5",
+      "SUMPIT 5"
+    ],
+    "BUILDING PROD TABLET": [
+      "Area BC",
+      "Area Press",
+      "Area AW",
+      "Area Packing"
+    ],
+    "BUILDING PROD BOILED CANDY": [
+      "AREA PROSES",
+      "AREA COOLING TUNNEL",
+      "AREA WRAPPING",
+      "AREA PACKING"
+    ],
+    "BUILDING ENGINEERING": [
+      "POWER PANEL 15",
+      "INFORMTN SYSTEM 8",
+      "UPS POWER 4",
+      "ENGINEERING OFFICE",
+      "WORKSHOP AREA",
+      "INDUSTRIAL SERVICE AREA",
+      "TECHNICAL STORE"
+    ],
+    "BUILDING WAREHOUSE RAW MATERIAL": [
+      "COOLROOM",
+      "ALLERGEN ROOM",
+      "RACKING WAREHOUSE",
+      "AREA RAW MATERIAL",
+      "AG KITCHEN",
+      "ARCHIEVE ROOM",
+      "EX BLIBLI ROOM",
+      "LU OFFICE",
+      "AREA BONGKAR"
+    ],
+    "BUILDING WAREHOUSE PACKAGING MATERIAL": [
+      "POWER PANEL 17",
+      "INFORMTN SYSTEM 10",
+      "RACKING WAREHOUSE 2"
+    ],
+    "BUILDING WAREHOUSE FINISHED GOODS": [
+      "POWER PANEL 18",
+      "INFORMTN SYSTEM 11",
+      "RACKING WAREHOUSE 3"
+    ],
+    "SINGLE WRAPPER": [
+      "EMPTY VACUUM 1",
+      "OUTLET CONVEYOR 1",
+      "FLOW WRAPP 2 MC",
+      "EMPTY VACUUM 2",
+      "OUTLET CONVEYOR 2",
+      "FLOW WRAPP 3 MC",
+      "EMPTY VACUUM 3",
+      "OUTLET CONVEYOR 3"
+    ],
+    "BUILDING GUMMY-LANTAI 2": [
+      "PANEL GUMMY - LANTAI 2"
+    ]
+  },
+  "DRYMIX": {
+    "DRYMIX LINE 1": [
+      "SUGAR HOPPER",
+      "MIXER",
+      "FLEXIBLE SCREW",
+      "METAL DETECTOR",
+      "FILVO FILLER",
+      "CHECK WEIGHER"
+    ],
+    "DRIMIX LINE 2": [
+      "MSK TIPPING",
+      "MILO TIPPING",
+      "MSK RECEIVING HOPPER",
+      "MILO RECEIVING HOPPER",
+      "MSK HOPPER",
+      "MILO HOPPER",
+      "SUGAR HOPPER",
+      "WEIGHING HOPPER",
+      "MIXER RECEIVING HOPPER",
+      "PADDLE MIXER",
+      "MIXER HOPPER",
+      "PRODUCT SCREW",
+      "METAL DETECTOR",
+      "FILLER MACHINE",
+      "CHECK WEIGHER",
+      "TAPE SEALER"
+    ],
+    "PREMIX PREPARATION": [
+      "MATERIAL HANDLING"
+    ]
+  },
+  "EXTRUSION": {
+    "FILLING PACKING": [
+      "WEIGHER MULTIHEAD 2",
+      "V-FILLER 4",
+      "CODING VIDEO JET 4",
+      "CONVEYOR 25",
+      "CONVEYOR 26",
+      "CONVEYOR 27",
+      "CONVEYOR 28",
+      "SEALER TAPE 6",
+      "CONVEYOR 29",
+      "CONVEYOR 30",
+      "HOPPER 26",
+      "WEIGHER MULTIHEAD 3",
+      "V-FILLER 5",
+      "CODING VIDEO JET 5",
+      "WEIGHER MULTIHEAD 4",
+      "V-FILLER 6",
+      "CODING VIDEO JET 6",
+      "CONVEYOR 31",
+      "WEIGHER MULTIHEAD 5",
+      "V-FILLER 7",
+      "CODING VIDEO JET 7",
+      "CONVEYOR 32",
+      "CONVEYOR 33",
+      "CONVEYOR 34",
+      "CONVEYOR 35",
+      "CONVEYOR 36",
+      "CONVEYOR 37",
+      "SEALER TAPE 7",
+      "CONVEYOR 38",
+      "DIE CUT FILLING 1",
+      "DIE CUT FILLING 2",
+      "DIE CUT",
+      "MESIN MNP 1",
+      "MESIN MNP 2",
+      "MESIN MNP 3",
+      "MESIN MNP 4",
+      "MHW MILNA 1",
+      "MHW MILNA 2",
+      "MHW MILNA 3",
+      "MHW KRIZZI 1",
+      "MHW KRIZZI 2",
+      "MHW KRIZZI 3",
+      "MHW BUCKET ELEVATOR",
+      "POUCH FP 1",
+      "POUCH FP 2",
+      "POUCH FP 3",
+      "POUCH FP 4",
+      "POUCH FP 5",
+      "POUCH FP 6",
+      "TAM FP 1",
+      "TAM FP 2",
+      "TAM FP 3",
+      "TAM FP 4",
+      "TAM FP 5",
+      "TAM FP 6",
+      "MAIN KONVEYOR",
+      "CHECKWEIGHER",
+      "PACKING MAIN KONVEYOR",
+      "PSA PM",
+      "FP AREA",
+      "TAPPING MACHINE BESTPACK",
+      "CASE WEIGHER",
+      "MEJA SAP"
+    ],
+    "PROCESS LT.1": [
+      "K-TRON",
+      "APV TANK",
+      "INLINE LAB PROCESS",
+      "TUMBLER",
+      "CREAM PREPARATION TANK",
+      "CONV CRIMPER & SPREADER",
+      "DRYER",
+      "FLATTENING ROLLER",
+      "CRIMPER",
+      "COOLING TUNNEL",
+      "CCP MD",
+      "EX PROCESS AREA"
+    ],
+    "PROCESS LT.2": [
+      "PSA RAW MATERIAL",
+      "PREMIX PREPARATION",
+      "DRYMIX MIXER",
+      "DRYMIX BUFFER TANK",
+      "AHU STATION"
+    ]
+  },
+  "GUMMY CANDY": {
+    "FILLING PACKING AREA": [
+      "MAIN CONVEYOR",
+      "LT. 1 - SHRINK MACHINE",
+      "LT. 1 - SPIRAL CONVEYOR",
+      "LT. 2 - MULTI HEAD WIGHER NO. 1",
+      "LT. 2 - MULTI HEAD WIGHER NO. 2",
+      "LT. 2 - MULTI HEAD WIGHER NO. 3",
+      "LT. 2 - MULTI HEAD WIGHER NO. 4",
+      "LT. 2 - FILLING MACHINE NO. 1",
+      "LT. 2 - FILLING MACHINE NO. 2",
+      "LT. 2 - FILLING MACHINE NO. 3",
+      "LT. 2 - FILLING MACHINE NO. 4",
+      "LT. 2 - CONVEYOR TRANSFER PRODUCT",
+      "LT. 1 - PSA",
+      "LT. 2 - TRANSPARENT POLYBAG MACHINE",
+      "LT. 2 - CHECK WEIGHER",
+      "LT. 2 - TAPPING MACHINE BESTPACK",
+      "LT. 2 - CASE WEIGHER",
+      "LT. 2 - MEJA PC",
+      "LOBBY LT. 2"
+    ],
+    "PROCESS AREA": [
+      "LT.4 - SUGAR SB342:B532TANK",
+      "LT. 3- BUCKET ELEVATOR",
+      "LT. 3 - METAL DETECTOR",
+      "LT.4 - SUGAR DISOLVING",
+      "LT.4 - PECTIN PREPARATION",
+      "LT.4 - GELATIN PREPARATION",
+      "LT.4 -  COLOR PREPARATION",
+      "LT.4 - VITAMIN PREPARATION",
+      "LT.4 - FLAVOUR PREPARATION",
+      "LT.4 - EXTRACT PREPARATION",
+      "LT.4 - CONTIGRAV GUMMY",
+      "LT.4 - DEPOSITOR GUMMY",
+      "LT.4 - COOLING TUNNEL GUMMY",
+      "LT.4 - DEMOLDING MACHINE GUMMY",
+      "LT.4 - TUMBLER GUMMY",
+      "LT.4 - BUCKET ELEVATOR",
+      "LT.4 - PSA AREA",
+      "LT.4 - JELLYSTAR COOKER",
+      "LT.4 - FAS DOSHING STATION",
+      "LT.4 - GLUCOSE SYRUP BUFFER TANK",
+      "LT.4 - PROCESS CLEANING STATION",
+      "LT.4 - AHU AREA",
+      "LT.4 - SLURRY TANK",
+      "LANTAI 4 - WASHING MOLD MACHINE"
+    ],
+    "DEPOSITING AREA": [
+      "MOLD TURNBACK SECTION",
+      "MOLD EXCHANGE SECTION",
+      "WAITING SECTION",
+      "AHU DEPOSITING SECTION"
+    ],
+    "CCP MD LT. 3": [
+      "FILLING OVER",
+      "FILLING KONVEYOR"
+    ],
+    "LOBBY LT. 3": [
+      "AHU STATION LT. 3",
+      "LOBBY GUMMY LT.3"
+    ],
+    "PSA AREA": [
+      "CLEANING SECTION",
+      "AHU STATION LT. 2"
+    ],
+    "FINISHED GOOD PSA": [
+      "LT. 1 - MEJA PC",
+      "LT. 1 - SPIRAL KONVEYOR",
+      "LT. 1 - SORTING MACHINE",
+      "LT. 1 - PACKING MANUAL JAR",
+      "LT. 1 - BESTPACK PACKING",
+      "PSA AREA",
+      "PSA  FG"
+    ]
+  },
+  "INDUSTRIAL SERVICE": {
+    "COMPRESSED AIR": [
+      "COMPRESSOR AIR 1",
+      "COMPRESSOR AIR 2",
+      "COMPRESSOR AIR 3",
+      "DRYER IS 1",
+      "DRYER IS 2",
+      "TANK IS 1",
+      "TANK IS 2",
+      "TANK IS 3"
+    ],
+    "PLN DISTRIBUTION": [
+      "TRAFO"
+    ],
+    "GENSET GENERATION": [
+      "DAILY FUEL TANK",
+      "FUEL PUMP",
+      "EXHAUST FAN",
+      "GENERATOR POWER 1",
+      "GENERATOR POWER 2",
+      "PANEL 1"
+    ],
+    "FREON R22 CHILLER GENERATION": [
+      "CHILLER 1",
+      "CHILLER 2",
+      "CHILLER 3",
+      "PUMP IS3",
+      "PUMP IS4",
+      "PUMP IS5",
+      "TANK IS 6",
+      "PUMP IS6",
+      "PUMP IS7",
+      "PUMP IS8",
+      "PUMP IS9"
+    ],
+    "AMMONIA CHILLER GENERATION": [
+      "BASIN WATER CHILLER",
+      "CIRCULATION PUMP 1",
+      "CIRCULATION PUMP 2",
+      "CIRCULATION PUMP 3",
+      "CHILLER 4",
+      "DISTRIBUTION PUMP 1",
+      "DISTRIBUTION PUMP 2",
+      "DISTRIBUTION PUMP 3",
+      "PANEL 2",
+      "FAN EXHAUST 1",
+      "FAN EXHAUST 2",
+      "CHAIN HOIST",
+      "MAIN EXHAUST FAN 3",
+      "APD EQUIPMENT",
+      "SAFETY SHOWER"
+    ],
+    "COOLING TOWER SYSTEM": [
+      "COOLING TOWER 1",
+      "COOLING TOWER 2",
+      "COOLING TOWER 3",
+      "COOLING TOWER 4",
+      "DISTRIBUTION PUMP 1",
+      "DISTRIBUTION PUMP 2",
+      "DISTRIBUTION PUMP 3",
+      "DISTRIBUTION PUMP 4"
+    ],
+    "REHEAT SYSTEM": [
+      "PUMP IS20",
+      "PUMP IS21",
+      "PHE 8"
+    ],
+    "AIR HANDLING UNIT SYSTEM": [
+      "AHU 1 (FOX'S PROCESS)",
+      "AHU 2 (EXTRUSION FP)",
+      "AHU 3 (EXTRUSION PROC)",
+      "AHU 4 (FOX'S F/P)",
+      "AHU 5 (POLO PRESS)",
+      "AHU 6 (POLO WRAPPING)",
+      "AHU 7 (DRYMIX)",
+      "FAN COOLING 1 (BC)",
+      "FAN COOLING 2"
+    ],
+    "BOILERS": [
+      "BOILER STEAM WANSON",
+      "BURNER IS 1",
+      "PIPING 2",
+      "PIPING 3"
+    ],
+    "CONDENSATE RETURN SYSTEM": [
+      "PUMP IS22",
+      "PUMP IS23",
+      "PUMP IS24",
+      "TANK IS 7"
+    ],
+    "FEED WATER SYSTEM": [
+      "TANK IS 8",
+      "PUMP IS25",
+      "PUMP IS26",
+      "PUMP IS27",
+      "PUMP IS28",
+      "PUMP IS29",
+      "TANK IS 9",
+      "PUMP IS30"
+    ],
+    "DRINKING WATER TREATMENT": [
+      "TANK IS 10",
+      "PUMP IS31",
+      "PUMP IS32",
+      "PUMP IS33",
+      "TANK IS 11",
+      "BASIN RESERVOIR WATER",
+      "PUMP IS34",
+      "PUMP IS35",
+      "PUMP IS36",
+      "PANEL 3",
+      "PUMP IS37",
+      "PUMP IS38",
+      "PUMP IS39",
+      "PANEL 4"
+    ],
+    "HOT WATER SYSTEM": [
+      "TANK IS 12 (HOT WATER PRODUCT)",
+      "PUMP IS40",
+      "PUMP IS41",
+      "PHE 9",
+      "TANK IS 13",
+      "PUMP IS42",
+      "PHE 10",
+      "PHE 11"
+    ],
+    "WELL SYSTEM": [
+      "SUMUR 1",
+      "SUMUR 2",
+      "SUMUR 3",
+      "SUMUR 4",
+      "SUMUR 5"
+    ],
+    "AEROBIC SYSTEM TREATRMENT": [
+      "TANK IS 14",
+      "BLOWER IS 1",
+      "BLOWER IS 2",
+      "DISCFUSER BUBLE",
+      "TANK IS 15",
+      "PUMP IS43",
+      "PUMP IS44",
+      "TANK IS 16",
+      "TANK IS 17",
+      "PUMP IS45"
+    ],
+    "DRAINASE": [
+      "PUMP IS46 (FLOOD FRONT FACT1)",
+      "PUMP IS47 (FLOOD FRONT FACT2)",
+      "PUMP IS48 (LAGOON)"
+    ],
+    "INFLUENT TREATMENT": [
+      "PUMP IS49",
+      "PUMP IS50",
+      "PUMP IS51",
+      "TANK IS 18"
+    ],
+    "ANAEROBIC SYSTEM REACTOR": [
+      "MUR",
+      "PUMP IS52",
+      "PUMP IS53",
+      "PUMP IS54",
+      "BURNER IS 2",
+      "PIPING 4"
+    ]
+  },
+  "PRESS CANDY (POLO)": {
+    "LIQUOR DISSOLVING": [
+      "AGITATOR 1",
+      "TANK 1",
+      "PUMP PROD1",
+      "PUMP PROD2"
+    ],
+    "SUGAR PREPARATION": [
+      "JET FILTER",
+      "ROTARY VALVE",
+      "BLOWER SYSTEM"
+    ],
+    "PRESSING": [
+      "PRESSING 1"
+    ],
+    "ROLL WRAPPING 1": [
+      "OUTLET CONVEYOR",
+      "CODING INK JET 1"
+    ],
+    "ROLL WRAPPING 2": [
+      "OUTLET CONVEYOR",
+      "CODING INK JET 2"
+    ],
+    "ROLL WRAPPING 3": [
+      "OUTLET CONVEYOR",
+      "CODING INK JET 3"
+    ],
+    "SINGLE WRAPPING": [
+      "CONVEYOR 16"
+    ]
+  }
+}

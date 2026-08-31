@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Report — Laporan Mesin</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="manifest" href="manifest.webmanifest" />
+<meta name="theme-color" content="#14283B" />
+<link rel="icon" type="image/png" href="assets/icon-192.png" />
+<link rel="apple-touch-icon" href="assets/icon-192.png" />
+<link rel="stylesheet" href="css/style.css" />
+</head>
+<body data-page="laporan" data-module="reports">
+
+<div class="app-shell">
+
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-head">
+      <div class="sidebar-brand">
+        <img src="assets/logo.png" alt="Savoria Kreasi Rasa" />
+        <div>
+          <p class="sidebar-brand-name">Savoria</p>
+          <p class="sidebar-brand-sub">Maintenance app</p>
+        </div>
+      </div>
+    </div>
+    <a href="dashboard.html" class="sidebar-link" data-module="dashboard">Dashboard</a>
+      <a href="trend.html" class="sidebar-link" data-module="trend">Trend</a>
+      <a href="laporan.html" class="sidebar-link" data-module="reports">Report</a>
+      <a href="pm.html" class="sidebar-link" data-module="utility">Utility</a>
+      <a href="production.html" class="sidebar-link" data-module="production">Production</a>
+      <a href="lubrication.html" class="sidebar-link" data-module="lubrication">Lubrication</a>
+      <a href="qrcode.html" class="sidebar-link" data-module="qrcode">QR Mesin</a>
+      <a href="riwayat-mesin.html" class="sidebar-link" data-module="riwayat_mesin">Riwayat Mesin</a>
+      <a href="draft.html" class="sidebar-link" data-module="draft">Draft</a>
+      <a href="kelola-user.html" class="sidebar-link" data-module="kelola_user">Kelola User</a>
+      <a href="online.html" class="sidebar-link" data-module="online">Online Sekarang</a>
+      <a href="export-data.html" class="sidebar-link" data-module="export_data">Export Data</a>
+      <a href="bersihkan-data.html" class="sidebar-link" data-module="bersihkan_data">Bersihkan Data</a>
+      <a href="audit-log.html" class="sidebar-link" data-module="audit_log">Audit Log</a>
+    </div>
+  </aside>
+
+  <div class="app-main">
+
+    <div class="topbar">
+      <div class="topbar-inner">
+        <div class="topbar-logo">
+          <img src="assets/logo.png" alt="Savoria Kreasi Rasa" />
+        </div>
+        <div class="topbar-text">
+          <span class="topbar-title">Report</span>
+          <span class="topbar-sub">Laporan kondisi &amp; kejadian mesin harian</span>
+        </div>
+        <button type="button" class="menu-btn" id="btn-menu" aria-label="Buka menu">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+
+    <main class="wrap wrap-wide">
+
+      <div class="draft-tabs" id="report-tabs">
+        <button type="button" class="draft-tab active" data-tab="input">Input Laporan</button>
+        <button type="button" class="draft-tab" data-tab="rekap" id="report-tab-rekap" hidden>Rekap Laporan</button>
+      </div>
+
+      <!-- ============ TAB: INPUT LAPORAN ============ -->
+      <div id="panel-input">
+        <div class="form-card form-card-narrow">
+          <form id="form-laporan" novalidate>
+
+            <!-- STATUS -->
+            <section class="field">
+              <label class="field-label">Status mesin</label>
+              <div class="status-grid" id="status-grid">
+                <button type="button" class="status-chip" data-value="Running">
+                  <span class="chip-dot"></span>Running
+                </button>
+                <button type="button" class="status-chip" data-value="Standby">
+                  <span class="chip-dot"></span>Standby
+                </button>
+                <button type="button" class="status-chip" data-value="Maintenance">
+                  <span class="chip-dot"></span>Maintenance
+                </button>
+                <button type="button" class="status-chip" data-value="Breakdown">
+                  <span class="chip-dot"></span>Breakdown
+                </button>
+              </div>
+              <p class="field-error" id="err-status" hidden>Pilih salah satu status.</p>
+            </section>
+
+            <!-- AREA / MESIN / EQUIPMENT -->
+            <div class="field-row-3 field-row-stack">
+              <section class="field">
+                <label class="field-label" for="select-area">Area</label>
+                <select id="select-area" required>
+                  <option value="" disabled selected>Memuat data area…</option>
+                </select>
+              </section>
+
+              <section class="field">
+                <label class="field-label" for="select-mesin">Mesin</label>
+                <select id="select-mesin" required disabled>
+                  <option value="" disabled selected>Pilih area dulu</option>
+                </select>
+              </section>
+
+              <section class="field">
+                <label class="field-label" for="select-equipment">Equipment</label>
+                <select id="select-equipment" required disabled>
+                  <option value="" disabled selected>Pilih mesin dulu</option>
+                </select>
+              </section>
+            </div>
+
+            <!-- TANGGAL -->
+            <section class="field">
+              <label class="field-label" for="input-tanggal">Tanggal</label>
+              <input type="date" id="input-tanggal" required />
+            </section>
+
+            <!-- JAM MULAI / JAM SELESAI / SHIFT -->
+            <div class="field-row-3">
+              <section class="field">
+                <label class="field-label" for="input-jam-mulai">Jam Mulai</label>
+                <input type="time" id="input-jam-mulai" required />
+              </section>
+              <section class="field">
+                <label class="field-label" for="input-jam-selesai">Jam Selesai</label>
+                <input type="time" id="input-jam-selesai" required />
+              </section>
+              <section class="field">
+                <label class="field-label" for="select-shift">Shift</label>
+                <select id="select-shift" required>
+                  <option value="" disabled selected>Pilih shift</option>
+                  <option value="Shift 1">Shift 1</option>
+                  <option value="Shift 2">Shift 2</option>
+                  <option value="Shift 3">Shift 3</option>
+                </select>
+              </section>
+            </div>
+            <p class="field-error" id="err-jam" hidden>Jam selesai tidak boleh sebelum jam mulai.</p>
+
+            <!-- DESKRIPSI -->
+            <section class="field">
+              <label class="field-label" for="input-deskripsi">Deskripsi kejadian</label>
+              <textarea id="input-deskripsi" rows="4" placeholder="Jelaskan kondisi atau kejadian pada mesin…" required></textarea>
+            </section>
+
+            <!-- PIC -->
+            <section class="field">
+              <label class="field-label" for="select-pic">PIC</label>
+              <select id="select-pic" required data-searchable data-placeholder="Cari nama PIC…">
+                <option value="" disabled selected>Memuat data karyawan…</option>
+              </select>
+            </section>
+
+            <!-- FOTO -->
+            <section class="field">
+              <label class="field-label">Foto</label>
+              <div class="photo-input">
+                <input type="file" id="input-foto-camera" accept="image/*" capture="environment" hidden />
+                <input type="file" id="input-foto-gallery" accept="image/*" multiple hidden />
+                <div class="photo-buttons">
+                  <button type="button" id="btn-foto-camera" class="photo-btn" hidden>Ambil foto</button>
+                  <button type="button" id="btn-foto-gallery" class="photo-btn">Upload foto</button>
+                </div>
+                <div class="photo-preview-grid" id="photo-preview-grid"></div>
+              </div>
+            </section>
+
+            <p class="form-error" id="form-error" hidden></p>
+
+            <button type="submit" id="btn-submit" class="btn-submit">
+              <span class="btn-submit-label">Kirim laporan</span>
+            </button>
+          </form>
+        </div>
+
+        <div class="success-overlay" id="success-overlay" hidden>
+          <div class="success-card">
+            <div class="success-check">✓</div>
+            <p class="success-title">Laporan terkirim</p>
+            <p class="success-sub">Laporan tersimpan sebagai <strong>draft</strong> dan menunggu review SPV.</p>
+            <button type="button" id="btn-new-report" class="btn-secondary">Buat laporan baru</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- ============ TAB: REKAP LAPORAN ============ -->
+      <div id="panel-rekap" hidden>
+
+        <section class="filter-card">
+          <div class="filter-row">
+            <div class="filter-field">
+              <label class="field-label" for="f-tanggal-dari">Dari tanggal</label>
+              <input type="date" id="f-tanggal-dari" />
+            </div>
+            <div class="filter-field">
+              <label class="field-label" for="f-tanggal-sampai">Sampai tanggal</label>
+              <input type="date" id="f-tanggal-sampai" />
+            </div>
+            <div class="filter-field">
+              <label class="field-label" for="f-area">Area</label>
+              <select id="f-area">
+                <option value="">Semua area</option>
+              </select>
+            </div>
+            <div class="filter-field">
+              <label class="field-label" for="f-status">Status</label>
+              <select id="f-status">
+                <option value="">Semua status</option>
+                <option value="Running">Running</option>
+                <option value="Standby">Standby</option>
+                <option value="Maintenance">Maintenance</option>
+                <option value="Breakdown">Breakdown</option>
+              </select>
+            </div>
+          </div>
+          <div class="filter-actions">
+            <button type="button" id="btn-filter" class="btn-secondary btn-inline">Terapkan filter</button>
+            <button type="button" id="btn-reset" class="btn-link-btn">Reset</button>
+          </div>
+        </section>
+
+        <div class="rekap-toolbar">
+          <p class="rekap-count" id="rekap-count">Memuat data…</p>
+          <button type="button" id="btn-export" class="btn-export" disabled>⬇ Export ke Excel</button>
+        </div>
+
+        <p class="form-error" id="rekap-error" hidden></p>
+
+        <div class="table-wrap">
+          <table id="rekap-table">
+            <thead>
+              <tr>
+                <th>Tanggal</th>
+                <th>Jam Mulai</th>
+                <th>Jam Selesai</th>
+                <th>Shift</th>
+                <th>Area</th>
+                <th>Mesin</th>
+                <th>Equipment</th>
+                <th>Status</th>
+                <th>Deskripsi</th>
+                <th>PIC</th>
+                <th>Foto</th>
+                <th>Review</th>
+              </tr>
+            </thead>
+            <tbody id="rekap-tbody">
+              <tr><td colspan="12" class="table-empty">Memuat data…</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+      </div>
+
+    </main>
+
+  </div>
+
+</div>
+
+<div class="sidebar-overlay" id="sidebar-overlay"></div>
+
+<script src="js/i18n.js"></script>
+<script src="js/sidebar.js"></script>
+<script type="module" src="js/auth.js"></script>
+<script type="module" src="js/app.js"></script>
+<script src="js/searchable-select.js"></script>
+<script type="module" src="js/rekap.js"></script>
+<script type="module" src="js/report-tabs.js"></script>
+<script src="js/pwa.js"></script>
+</body>
+</html>

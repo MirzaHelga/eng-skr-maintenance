@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Production</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="manifest" href="manifest.webmanifest" />
+<meta name="theme-color" content="#14283B" />
+<link rel="icon" type="image/png" href="assets/icon-192.png" />
+<link rel="apple-touch-icon" href="assets/icon-192.png" />
+<link rel="stylesheet" href="css/style.css" />
+</head>
+<body data-page="production-checklist" data-module="production">
+
+<div class="app-shell">
+
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-head">
+      <div class="sidebar-brand">
+        <img src="assets/logo.png" alt="Savoria Kreasi Rasa" />
+        <div>
+          <p class="sidebar-brand-name">Savoria</p>
+          <p class="sidebar-brand-sub">Maintenance app</p>
+        </div>
+      </div>
+    </div>
+    <a href="dashboard.html" class="sidebar-link" data-module="dashboard">Dashboard</a>
+      <a href="trend.html" class="sidebar-link" data-module="trend">Trend</a>
+      <a href="laporan.html" class="sidebar-link" data-module="reports">Report</a>
+      <a href="pm.html" class="sidebar-link" data-module="utility">Utility</a>
+      <a href="production.html" class="sidebar-link" data-module="production">Production</a>
+      <a href="lubrication.html" class="sidebar-link" data-module="lubrication">Lubrication</a>
+      <a href="qrcode.html" class="sidebar-link" data-module="qrcode">QR Mesin</a>
+      <a href="riwayat-mesin.html" class="sidebar-link" data-module="riwayat_mesin">Riwayat Mesin</a>
+      <a href="draft.html" class="sidebar-link" data-module="draft">Draft</a>
+      <a href="kelola-user.html" class="sidebar-link" data-module="kelola_user">Kelola User</a>
+      <a href="online.html" class="sidebar-link" data-module="online">Online Sekarang</a>
+      <a href="export-data.html" class="sidebar-link" data-module="export_data">Export Data</a>
+      <a href="bersihkan-data.html" class="sidebar-link" data-module="bersihkan_data">Bersihkan Data</a>
+      <a href="audit-log.html" class="sidebar-link" data-module="audit_log">Audit Log</a>
+    </div>
+  </aside>
+
+  <div class="app-main">
+
+    <div class="topbar">
+      <div class="topbar-inner">
+        <div class="topbar-logo">
+          <img src="assets/logo.png" alt="Savoria Kreasi Rasa" />
+        </div>
+        <div class="topbar-text">
+          <span class="topbar-title" id="checklist-topbar-title">Production</span>
+          <span class="topbar-sub" id="checklist-topbar-sub">&nbsp;</span>
+        </div>
+        <button type="button" class="menu-btn" id="btn-menu" aria-label="Buka menu">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+
+    <main class="wrap wrap-form">
+
+      <a href="production.html" class="pm-back-btn" id="production-checklist-back-link">
+        Kembali ke daftar checklist Production
+      </a>
+
+      <p class="form-error" id="checklist-not-found" hidden>
+        Checklist tidak ditemukan. Kembali ke daftar checklist dan pilih lagi.
+      </p>
+
+      <div class="form-card" id="checklist-card" hidden>
+        <form id="form-checklist" novalidate>
+
+          <section class="field">
+            <label class="field-label" for="input-equipment">Equipment</label>
+            <input type="text" id="input-equipment" placeholder="Nama / tipe equipment" required />
+          </section>
+
+          <div class="field-row">
+            <section class="field">
+              <label class="field-label" for="input-area">Area</label>
+              <input type="text" id="input-area" placeholder="Lokasi / area" />
+            </section>
+            <section class="field">
+              <label class="field-label">Periode</label>
+              <input type="text" id="input-periode" disabled />
+            </section>
+          </div>
+
+          <div class="field-row">
+            <section class="field">
+              <label class="field-label" for="input-bulan-tahun" id="label-bulan-tahun">Bulan / Tahun</label>
+              <input type="text" id="input-bulan-tahun" placeholder="cth. Juli 2026" />
+            </section>
+            <section class="field">
+              <label class="field-label" for="input-tanggal" id="label-tanggal">Tanggal Inspeksi</label>
+              <input type="date" id="input-tanggal" required />
+            </section>
+          </div>
+
+          <section class="field">
+            <label class="field-label" id="label-uraian">Uraian pekerjaan</label>
+            <p class="checklist-grid-hint" id="checklist-grid-hint" hidden>Geser ke kanan untuk isi semua kolom</p>
+            <div class="checklist-table" id="checklist-items"></div>
+          </section>
+
+          <section class="field">
+            <label class="field-label" for="select-opr">Checked By (Operator)</label>
+            <select id="select-opr" required data-searchable data-placeholder="Cari nama operator…">
+              <option value="" disabled selected>Memuat data operator…</option>
+            </select>
+          </section>
+
+          <section class="field">
+            <label class="field-label">Foto evidence</label>
+            <div class="photo-input">
+              <input type="file" id="input-foto-camera" accept="image/*" capture="environment" hidden />
+              <input type="file" id="input-foto-gallery" accept="image/*" multiple hidden />
+              <div class="photo-buttons">
+                <button type="button" id="btn-foto-camera" class="photo-btn" hidden>Ambil foto</button>
+                <button type="button" id="btn-foto-gallery" class="photo-btn">Upload foto</button>
+              </div>
+              <div class="photo-preview-grid" id="photo-preview-grid"></div>
+            </div>
+          </section>
+
+          <section class="field">
+            <label class="field-label" for="input-catatan">Catatan</label>
+            <textarea id="input-catatan" placeholder="Catatan tambahan (opsional)"></textarea>
+          </section>
+
+          <p class="form-error" id="form-error" hidden></p>
+
+          <button type="submit" class="btn-submit" id="btn-submit">
+            <span class="btn-submit-label">Simpan checklist</span>
+          </button>
+        </form>
+      </div>
+
+    </main>
+
+  </div>
+
+</div>
+
+<div class="sidebar-overlay" id="sidebar-overlay"></div>
+
+<div class="success-overlay" id="success-overlay" hidden>
+  <div class="success-card">
+    <div class="success-check">&check;</div>
+    <p><strong>Checklist tersimpan</strong></p>
+    <p>Tersimpan sebagai <strong>draft</strong>, menunggu review SPV.</p>
+    <button type="button" class="btn-submit" id="btn-new-checklist">Isi checklist baru</button>
+  </div>
+</div>
+
+<script src="js/i18n.js"></script>
+<script src="js/sidebar.js"></script>
+<script type="module" src="js/auth.js"></script>
+<script type="module" src="js/production-checklist.js"></script>
+<script src="js/searchable-select.js"></script>
+<script src="js/pwa.js"></script>
+</body>
+</html>

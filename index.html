@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Masuk — Maintenance App</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="manifest" href="manifest.webmanifest" />
+<meta name="theme-color" content="#14283B" />
+<link rel="icon" type="image/png" href="assets/icon-192.png" />
+<link rel="apple-touch-icon" href="assets/icon-192.png" />
+<link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+
+<div class="app-shell">
+
+  <div class="app-main">
+
+    <div class="topbar">
+      <div class="topbar-inner">
+        <div class="topbar-logo">
+          <img src="assets/logo.png" alt="Savoria Kreasi Rasa" />
+        </div>
+        <div class="topbar-text">
+          <span class="topbar-title">Maintenance App</span>
+          <span class="topbar-sub">Masuk sesuai peran kamu</span>
+        </div>
+      </div>
+    </div>
+
+    <main class="wrap gate-wrap login-gate-wrap">
+      <div class="gate-card">
+        <p class="gate-title">Masuk</p>
+        <p class="gate-sub">Masuk pakai akun kamu.</p>
+
+        <form id="login-form">
+          <input type="text" id="input-username" class="gate-input" placeholder="Username" autocomplete="username" required />
+          <input type="password" id="input-password" class="gate-input" placeholder="Password" autocomplete="current-password" required />
+          <p class="gate-error" id="login-error" hidden></p>
+          <button type="submit" class="btn-submit">Masuk</button>
+        </form>
+      </div>
+    </main>
+
+  </div>
+
+</div>
+
+<script type="module" src="js/login.js"></script>
+<script src="js/i18n.js"></script>
+<script src="js/pwa.js"></script>
+</body>
+</html>

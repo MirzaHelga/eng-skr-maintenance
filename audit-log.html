@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Audit Log — Maintenance App</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="manifest" href="manifest.webmanifest" />
+<meta name="theme-color" content="#14283B" />
+<link rel="icon" type="image/png" href="assets/icon-192.png" />
+<link rel="apple-touch-icon" href="assets/icon-192.png" />
+<link rel="stylesheet" href="css/style.css" />
+</head>
+<body data-page="audit-log" data-module="audit_log">
+
+<div class="app-shell">
+
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-head">
+      <div class="sidebar-brand">
+        <img src="assets/logo.png" alt="Savoria Kreasi Rasa" />
+        <div>
+          <p class="sidebar-brand-name">Savoria</p>
+          <p class="sidebar-brand-sub">Maintenance app</p>
+        </div>
+      </div>
+    </div>
+    <a href="dashboard.html" class="sidebar-link" data-module="dashboard">Dashboard</a>
+      <a href="trend.html" class="sidebar-link" data-module="trend">Trend</a>
+      <a href="laporan.html" class="sidebar-link" data-module="reports">Report</a>
+      <a href="pm.html" class="sidebar-link" data-module="utility">Utility</a>
+      <a href="production.html" class="sidebar-link" data-module="production">Production</a>
+      <a href="lubrication.html" class="sidebar-link" data-module="lubrication">Lubrication</a>
+      <a href="qrcode.html" class="sidebar-link" data-module="qrcode">QR Mesin</a>
+      <a href="riwayat-mesin.html" class="sidebar-link" data-module="riwayat_mesin">Riwayat Mesin</a>
+      <a href="draft.html" class="sidebar-link" data-module="draft">Draft</a>
+      <a href="kelola-user.html" class="sidebar-link" data-module="kelola_user">Kelola User</a>
+      <a href="online.html" class="sidebar-link" data-module="online">Online Sekarang</a>
+      <a href="export-data.html" class="sidebar-link" data-module="export_data">Export Data</a>
+      <a href="bersihkan-data.html" class="sidebar-link" data-module="bersihkan_data">Bersihkan Data</a>
+      <a href="audit-log.html" class="sidebar-link" data-module="audit_log">Audit Log</a>
+    </div>
+  </aside>
+
+  <div class="app-main">
+
+    <div class="topbar">
+      <div class="topbar-inner">
+        <div class="topbar-logo">
+          <img src="assets/logo.png" alt="Savoria Kreasi Rasa" />
+        </div>
+        <div class="topbar-text">
+          <span class="topbar-title">Audit Log</span>
+          <span class="topbar-sub">Jejak aktivitas: login, kelola user, approve/reject, hapus data</span>
+        </div>
+        <button type="button" class="menu-btn" id="btn-menu" aria-label="Buka menu">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+
+    <main class="wrap wrap-wide">
+
+      <!-- FILTER -->
+      <section class="filter-card">
+        <div class="filter-row">
+          <div class="filter-field">
+            <label class="field-label" for="al-aksi">Aksi</label>
+            <select id="al-aksi">
+              <option value="">Semua aksi</option>
+            </select>
+          </div>
+          <div class="filter-field">
+            <label class="field-label" for="al-entitas">Jenis data</label>
+            <select id="al-entitas">
+              <option value="">Semua jenis</option>
+            </select>
+          </div>
+          <div class="filter-field">
+            <label class="field-label" for="al-aktor">Cari aktor</label>
+            <input type="text" id="al-aktor" placeholder="Username atau nama…" class="gate-input" />
+          </div>
+        </div>
+        <div class="filter-row">
+          <div class="filter-field">
+            <label class="field-label" for="al-tanggal-dari">Dari tanggal</label>
+            <input type="date" id="al-tanggal-dari" />
+          </div>
+          <div class="filter-field">
+            <label class="field-label" for="al-tanggal-sampai">Sampai tanggal</label>
+            <input type="date" id="al-tanggal-sampai" />
+          </div>
+        </div>
+        <div class="filter-actions">
+          <button type="button" id="btn-filter" class="btn-secondary btn-inline">Terapkan filter</button>
+          <button type="button" id="btn-reset" class="btn-link-btn">Reset</button>
+        </div>
+      </section>
+
+      <div class="rekap-toolbar">
+        <p class="rekap-count" id="audit-count">Memuat data…</p>
+        <button type="button" id="btn-export" class="btn-export" disabled>Export Excel</button>
+      </div>
+
+      <p class="form-error" id="audit-error" hidden></p>
+
+      <div class="table-wrap">
+        <table id="audit-table">
+          <thead>
+            <tr>
+              <th>Waktu</th>
+              <th>Aktor</th>
+              <th>Aksi</th>
+              <th>Data terkait</th>
+              <th>Keterangan</th>
+            </tr>
+          </thead>
+          <tbody id="audit-tbody">
+            <tr><td colspan="5" class="table-empty">Memuat data…</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+    </main>
+
+  </div>
+
+</div>
+
+<div class="sidebar-overlay" id="sidebar-overlay"></div>
+
+<script src="js/i18n.js"></script>
+<script src="js/sidebar.js"></script>
+<script type="module" src="js/auth.js"></script>
+<script type="module" src="js/audit-log.js"></script>
+<script src="js/pwa.js"></script>
+</body>
+</html>

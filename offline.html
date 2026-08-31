@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Offline — Maintenance App</title>
+<link rel="icon" type="image/png" href="assets/icon-192.png" />
+<link rel="stylesheet" href="css/style.css" />
+<style>
+  .offline-wrap {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 12px;
+    text-align: center;
+    padding: 24px;
+    background: var(--paper);
+    font-family: var(--font-body, sans-serif);
+  }
+  .offline-wrap img { width: 64px; height: 64px; opacity: .8; margin-bottom: 8px; }
+  .offline-wrap h1 { font-family: var(--font-display); font-size: 20px; color: var(--ink); margin: 0; }
+  .offline-wrap p { color: var(--ink-soft); font-size: 14px; max-width: 320px; margin: 0; }
+  .offline-wrap button {
+    margin-top: 8px; padding: 10px 20px; border-radius: var(--radius); border: none;
+    background: var(--steel-dark); color: #fff; font-weight: 600; cursor: pointer;
+  }
+</style>
+</head>
+<body>
+  <div class="offline-wrap">
+    <img src="assets/icon-192.png" alt="" />
+    <h1>Koneksi terputus</h1>
+    <p>Halaman ini butuh internet untuk memuat data terbaru. Coba lagi kalau sinyal sudah kembali.</p>
+    <button onclick="location.reload()">Coba lagi</button>
+  </div>
+</body>
+</html>

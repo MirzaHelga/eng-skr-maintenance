@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Trend & Analytics — Maintenance</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="manifest" href="manifest.webmanifest" />
+<meta name="theme-color" content="#14283B" />
+<link rel="icon" type="image/png" href="assets/icon-192.png" />
+<link rel="apple-touch-icon" href="assets/icon-192.png" />
+<link rel="stylesheet" href="css/style.css" />
+</head>
+<body data-page="trend" data-module="trend">
+
+<div class="app-shell">
+
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-head">
+      <div class="sidebar-brand">
+        <img src="assets/logo.png" alt="Savoria Kreasi Rasa" />
+        <div>
+          <p class="sidebar-brand-name">Savoria</p>
+          <p class="sidebar-brand-sub">Maintenance app</p>
+        </div>
+      </div>
+    </div>
+    <a href="dashboard.html" class="sidebar-link" data-module="dashboard">Dashboard</a>
+      <a href="trend.html" class="sidebar-link" data-module="trend">Trend</a>
+      <a href="laporan.html" class="sidebar-link" data-module="reports">Report</a>
+      <a href="pm.html" class="sidebar-link" data-module="utility">Utility</a>
+      <a href="production.html" class="sidebar-link" data-module="production">Production</a>
+      <a href="lubrication.html" class="sidebar-link" data-module="lubrication">Lubrication</a>
+      <a href="qrcode.html" class="sidebar-link" data-module="qrcode">QR Mesin</a>
+      <a href="riwayat-mesin.html" class="sidebar-link" data-module="riwayat_mesin">Riwayat Mesin</a>
+      <a href="draft.html" class="sidebar-link" data-module="draft">Draft</a>
+      <a href="kelola-user.html" class="sidebar-link" data-module="kelola_user">Kelola User</a>
+      <a href="online.html" class="sidebar-link" data-module="online">Online Sekarang</a>
+      <a href="export-data.html" class="sidebar-link" data-module="export_data">Export Data</a>
+      <a href="bersihkan-data.html" class="sidebar-link" data-module="bersihkan_data">Bersihkan Data</a>
+      <a href="audit-log.html" class="sidebar-link" data-module="audit_log">Audit Log</a>
+    </div>
+  </aside>
+
+  <div class="app-main">
+
+    <div class="topbar">
+      <div class="topbar-inner">
+        <div class="topbar-logo">
+          <img src="assets/logo.png" alt="Savoria Kreasi Rasa" />
+        </div>
+        <div class="topbar-text">
+          <span class="topbar-title">Trend & Analytics</span>
+          <span class="topbar-sub">Pola breakdown & status mesin dari waktu ke waktu</span>
+        </div>
+        <button type="button" class="menu-btn" id="btn-menu" aria-label="Buka menu">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+
+    <main class="wrap wrap-wide">
+
+      <div class="dash-header">
+        <div>
+          <p class="dash-header-title">Trend & Analytics</p>
+          <p class="dash-header-date">Berdasarkan data Laporan Mesin (semua status review)</p>
+        </div>
+      </div>
+
+      <!-- FILTER PERIODE -->
+      <section class="filter-card">
+        <div class="filter-row">
+          <div class="filter-field">
+            <label class="field-label" for="f-bulan">Bulan</label>
+            <input type="month" id="f-bulan" />
+          </div>
+          <div class="filter-field">
+            <label class="field-label" for="f-area">Area</label>
+            <select id="f-area">
+              <option value="">Semua area</option>
+            </select>
+          </div>
+          <div class="filter-field">
+            <label class="field-label" for="f-jumlah-bulan">Rentang trend</label>
+            <select id="f-jumlah-bulan">
+              <option value="3">3 bulan terakhir</option>
+              <option value="6" selected>6 bulan terakhir</option>
+              <option value="12">12 bulan terakhir</option>
+            </select>
+          </div>
+        </div>
+        <div class="filter-actions">
+          <button type="button" id="btn-filter" class="btn-secondary btn-inline">Terapkan filter</button>
+          <button type="button" id="btn-reset" class="btn-link-btn">Reset</button>
+        </div>
+      </section>
+
+      <p class="form-error" id="trend-error" hidden></p>
+
+      <!-- BARIS 1: STATUS TREND (stacked) + DISTRIBUSI STATUS BULAN INI -->
+      <div class="dash-grid trend-grid">
+        <section class="dash-side-card trend-card">
+          <p class="dash-side-title">Trend status per bulan</p>
+          <p class="trend-card-sub" id="trend-status-sub">Memuat…</p>
+          <div class="trend-chart-wrap">
+            <canvas id="chart-status-trend"></canvas>
+          </div>
+        </section>
+
+        <section class="dash-side-card trend-card">
+          <p class="dash-side-title">Distribusi status — bulan terpilih</p>
+          <p class="trend-card-sub" id="trend-dist-sub">Memuat…</p>
+          <div class="trend-chart-wrap trend-chart-wrap-donut">
+            <canvas id="chart-status-donut"></canvas>
+          </div>
+        </section>
+      </div>
+
+      <!-- BARIS 2: BREAKDOWN PER MESIN -->
+      <section class="dash-side-card trend-card trend-card-wide">
+        <p class="dash-side-title">Mesin paling sering breakdown — bulan terpilih</p>
+        <p class="trend-card-sub" id="trend-breakdown-sub">Memuat…</p>
+        <div class="trend-chart-wrap trend-chart-wrap-bar">
+          <canvas id="chart-breakdown-mesin"></canvas>
+        </div>
+      </section>
+
+      <!-- BARIS 3: TABEL RANKING (fallback lengkap + bisa dibaca screen reader) -->
+      <section class="trend-card-wide">
+        <div class="dash-recent-head">
+          <p class="dash-recent-title">Ranking lengkap — laporan per mesin (bulan terpilih)</p>
+        </div>
+        <div class="table-wrap">
+          <table id="trend-table">
+            <thead>
+              <tr>
+                <th>Mesin</th>
+                <th>Area</th>
+                <th>Total laporan</th>
+                <th>Breakdown</th>
+                <th>Maintenance</th>
+                <th>Standby</th>
+                <th>Running</th>
+              </tr>
+            </thead>
+            <tbody id="trend-tbody">
+              <tr><td colspan="7" class="table-empty">Memuat data…</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+    </main>
+
+  </div>
+
+</div>
+
+<div class="sidebar-overlay" id="sidebar-overlay"></div>
+
+<script src="js/i18n.js"></script>
+<script src="js/sidebar.js"></script>
+<script type="module" src="js/auth.js"></script>
+<script type="module" src="js/trend.js"></script>
+<script src="js/pwa.js"></script>
+</body>
+</html>

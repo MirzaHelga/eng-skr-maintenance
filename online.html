@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Online Sekarang — Maintenance</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="manifest" href="manifest.webmanifest" />
+<meta name="theme-color" content="#14283B" />
+<link rel="icon" type="image/png" href="assets/icon-192.png" />
+<link rel="apple-touch-icon" href="assets/icon-192.png" />
+<link rel="stylesheet" href="css/style.css" />
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+</head>
+<body data-page="online" data-module="online">
+
+<div class="app-shell">
+
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-head">
+      <div class="sidebar-brand">
+        <img src="assets/logo.png" alt="Savoria Kreasi Rasa" />
+        <div>
+          <p class="sidebar-brand-name">Savoria</p>
+          <p class="sidebar-brand-sub">Maintenance app</p>
+        </div>
+      </div>
+    </div>
+    <a href="dashboard.html" class="sidebar-link" data-module="dashboard">Dashboard</a>
+      <a href="trend.html" class="sidebar-link" data-module="trend">Trend</a>
+      <a href="laporan.html" class="sidebar-link" data-module="reports">Report</a>
+      <a href="pm.html" class="sidebar-link" data-module="utility">Utility</a>
+      <a href="production.html" class="sidebar-link" data-module="production">Production</a>
+      <a href="lubrication.html" class="sidebar-link" data-module="lubrication">Lubrication</a>
+      <a href="qrcode.html" class="sidebar-link" data-module="qrcode">QR Mesin</a>
+      <a href="riwayat-mesin.html" class="sidebar-link" data-module="riwayat_mesin">Riwayat Mesin</a>
+      <a href="draft.html" class="sidebar-link" data-module="draft">Draft</a>
+      <a href="kelola-user.html" class="sidebar-link" data-module="kelola_user">Kelola User</a>
+      <a href="online.html" class="sidebar-link" data-module="online">Online Sekarang</a>
+      <a href="export-data.html" class="sidebar-link" data-module="export_data">Export Data</a>
+      <a href="bersihkan-data.html" class="sidebar-link" data-module="bersihkan_data">Bersihkan Data</a>
+      <a href="audit-log.html" class="sidebar-link" data-module="audit_log">Audit Log</a>
+    </div>
+  </aside>
+
+  <div class="app-main">
+
+    <div class="topbar">
+      <div class="topbar-inner">
+        <div class="topbar-logo">
+          <img src="assets/logo.png" alt="Savoria Kreasi Rasa" />
+        </div>
+        <div class="topbar-text">
+          <span class="topbar-title">Online Sekarang</span>
+          <span class="topbar-sub">Siapa yang lagi buka app &amp; posisi GPS terakhirnya</span>
+        </div>
+        <button type="button" class="menu-btn" id="btn-menu" aria-label="Buka menu">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+
+    <main class="wrap wrap-wide">
+
+      <div class="dash-header">
+        <div>
+          <p class="dash-header-title">Online Sekarang</p>
+          <p class="dash-header-date" id="online-sub">Memuat…</p>
+        </div>
+      </div>
+
+      <p class="form-error" id="online-error" hidden></p>
+
+      <section class="dash-stats" id="online-stats">
+        <div class="dash-stat-card">
+          <span class="dash-stat-label">Device online</span>
+          <span class="dash-stat-value" id="online-stat-online">–</span>
+        </div>
+        <div class="dash-stat-card">
+          <span class="dash-stat-label">Akun online</span>
+          <span class="dash-stat-value" id="online-stat-akun">–</span>
+        </div>
+        <div class="dash-stat-card">
+          <span class="dash-stat-label">Ada titik lokasi</span>
+          <span class="dash-stat-value" id="online-stat-lokasi">–</span>
+        </div>
+        <div class="dash-stat-card">
+          <span class="dash-stat-label">Total device tercatat</span>
+          <span class="dash-stat-value" id="online-stat-total">–</span>
+        </div>
+      </section>
+
+      <!-- PETA -->
+      <section class="trend-card-wide">
+        <div class="dash-recent-head">
+          <p class="dash-recent-title">Peta lokasi terakhir</p>
+        </div>
+        <div id="online-map" class="online-map"></div>
+        <p class="trend-card-sub online-map-hint">Titik cuma muncul untuk user yang mengizinkan akses lokasi di browser-nya. Warna hijau = online (update &lt; 5 menit lalu), abu-abu = terakhir terlihat lebih lama.</p>
+      </section>
+
+      <!-- TABEL -->
+      <section class="trend-card-wide">
+        <div class="dash-recent-head">
+          <p class="dash-recent-title">Daftar user</p>
+        </div>
+        <div class="table-wrap">
+          <table id="online-table">
+            <thead>
+              <tr>
+                <th>Status</th>
+                <th>Nama</th>
+                <th>Role</th>
+                <th>Device</th>
+                <th>Halaman terakhir</th>
+                <th>Update terakhir</th>
+                <th>Lokasi</th>
+              </tr>
+            </thead>
+            <tbody id="online-tbody">
+              <tr><td colspan="7" class="table-empty">Memuat data…</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+    </main>
+
+  </div>
+
+</div>
+
+<div class="sidebar-overlay" id="sidebar-overlay"></div>
+
+<script src="js/i18n.js"></script>
+<script src="js/sidebar.js"></script>
+<script type="module" src="js/auth.js"></script>
+<script type="module" src="js/online.js"></script>
+<script src="js/pwa.js"></script>
+</body>
+</html>

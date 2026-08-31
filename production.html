@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Production</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="manifest" href="manifest.webmanifest" />
+<meta name="theme-color" content="#14283B" />
+<link rel="icon" type="image/png" href="assets/icon-192.png" />
+<link rel="apple-touch-icon" href="assets/icon-192.png" />
+<link rel="stylesheet" href="css/style.css" />
+</head>
+<body data-page="production" data-module="production">
+
+<div class="app-shell">
+
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-head">
+      <div class="sidebar-brand">
+        <img src="assets/logo.png" alt="Savoria Kreasi Rasa" />
+        <div>
+          <p class="sidebar-brand-name">Savoria</p>
+          <p class="sidebar-brand-sub">Maintenance app</p>
+        </div>
+      </div>
+    </div>
+    <a href="dashboard.html" class="sidebar-link" data-module="dashboard">Dashboard</a>
+      <a href="trend.html" class="sidebar-link" data-module="trend">Trend</a>
+      <a href="laporan.html" class="sidebar-link" data-module="reports">Report</a>
+      <a href="pm.html" class="sidebar-link" data-module="utility">Utility</a>
+      <a href="production.html" class="sidebar-link" data-module="production">Production</a>
+      <a href="lubrication.html" class="sidebar-link" data-module="lubrication">Lubrication</a>
+      <a href="qrcode.html" class="sidebar-link" data-module="qrcode">QR Mesin</a>
+      <a href="riwayat-mesin.html" class="sidebar-link" data-module="riwayat_mesin">Riwayat Mesin</a>
+      <a href="draft.html" class="sidebar-link" data-module="draft">Draft</a>
+      <a href="kelola-user.html" class="sidebar-link" data-module="kelola_user">Kelola User</a>
+      <a href="online.html" class="sidebar-link" data-module="online">Online Sekarang</a>
+      <a href="export-data.html" class="sidebar-link" data-module="export_data">Export Data</a>
+      <a href="bersihkan-data.html" class="sidebar-link" data-module="bersihkan_data">Bersihkan Data</a>
+      <a href="audit-log.html" class="sidebar-link" data-module="audit_log">Audit Log</a>
+    </div>
+  </aside>
+
+  <div class="app-main">
+
+    <div class="topbar">
+      <div class="topbar-inner">
+        <div class="topbar-logo">
+          <img src="assets/logo.png" alt="Savoria Kreasi Rasa" />
+        </div>
+        <div class="topbar-text">
+          <span class="topbar-title">Production</span>
+          <span class="topbar-sub" id="production-topbar-sub">Pilih line produksi</span>
+        </div>
+        <button type="button" class="menu-btn" id="btn-menu" aria-label="Buka menu">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+
+    <main class="wrap wrap-wide">
+
+      <div class="draft-tabs" id="production-tabs">
+        <button type="button" class="draft-tab active" data-tab="input">Checklist PM Production</button>
+        <button type="button" class="draft-tab" data-tab="rekap" id="production-tab-rekap" hidden>Rekap Checklist PM Production</button>
+      </div>
+
+      <!-- ============ TAB: CHECKLIST PM PRODUCTION ============ -->
+      <div id="panel-input">
+        <div id="production-lines"></div>
+        <div id="production-categories"></div>
+      </div>
+
+      <!-- ============ TAB: REKAP CHECKLIST PM PRODUCTION ============ -->
+      <div id="panel-rekap" hidden>
+
+        <section class="filter-card">
+          <div class="filter-row">
+            <div class="filter-field">
+              <label class="field-label" for="f-tanggal-dari">Dari tanggal</label>
+              <input type="date" id="f-tanggal-dari" />
+            </div>
+            <div class="filter-field">
+              <label class="field-label" for="f-tanggal-sampai">Sampai tanggal</label>
+              <input type="date" id="f-tanggal-sampai" />
+            </div>
+            <div class="filter-field">
+              <label class="field-label" for="f-checklist">Checklist</label>
+              <select id="f-checklist">
+                <option value="">Semua checklist</option>
+              </select>
+            </div>
+            <div class="filter-field">
+              <label class="field-label" for="f-periode">Periode</label>
+              <select id="f-periode">
+                <option value="">Semua periode</option>
+              </select>
+            </div>
+          </div>
+          <div class="filter-actions">
+            <button type="button" id="btn-filter" class="btn-secondary btn-inline">Terapkan filter</button>
+            <button type="button" id="btn-reset" class="btn-link-btn">Reset</button>
+          </div>
+        </section>
+
+        <div class="rekap-toolbar">
+          <p class="rekap-count" id="rekap-count">Memuat data…</p>
+          <button type="button" id="btn-export" class="btn-export" disabled>⬇ Export ke Excel</button>
+        </div>
+
+        <p class="form-error" id="rekap-error" hidden></p>
+
+        <div class="table-wrap">
+          <table id="rekap-table">
+            <thead>
+              <tr>
+                <th>Tanggal</th>
+                <th>Checklist</th>
+                <th>Periode</th>
+                <th>Equipment</th>
+                <th>Area</th>
+                <th>Bulan/Tahun</th>
+                <th>Diperiksa (OPR)</th>
+                <th>Diperiksa (SPV)</th>
+                <th>Foto</th>
+                <th>Review</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody id="rekap-tbody">
+              <tr><td colspan="11" class="table-empty">Memuat data…</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+      </div>
+
+    </main>
+
+  </div>
+
+</div>
+
+<div class="sidebar-overlay" id="sidebar-overlay"></div>
+
+<!-- DETAIL CHECKLIST -->
+<div class="pm-detail-overlay" id="pm-detail-overlay" hidden>
+  <div class="pm-detail-card">
+    <button type="button" class="pm-detail-close" id="pm-detail-close" aria-label="Tutup">&times;</button>
+    <p class="pm-detail-title" id="pm-detail-title"></p>
+    <p class="pm-detail-sub" id="pm-detail-sub"></p>
+    <div class="pm-detail-meta" id="pm-detail-meta"></div>
+    <div class="pm-detail-body" id="pm-detail-body"></div>
+    <div class="pm-detail-foto" id="pm-detail-foto"></div>
+    <div class="pm-detail-catatan" id="pm-detail-catatan"></div>
+  </div>
+</div>
+
+<script src="js/i18n.js"></script>
+<script src="js/sidebar.js"></script>
+<script type="module" src="js/auth.js"></script>
+<script type="module" src="js/production.js"></script>
+<script type="module" src="js/rekap-production.js"></script>
+<script type="module" src="js/production-tabs.js"></script>
+<script src="js/pwa.js"></script>
+</body>
+</html>

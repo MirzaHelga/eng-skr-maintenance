@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Kelola User — Maintenance App</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="manifest" href="manifest.webmanifest" />
+<meta name="theme-color" content="#14283B" />
+<link rel="icon" type="image/png" href="assets/icon-192.png" />
+<link rel="apple-touch-icon" href="assets/icon-192.png" />
+<link rel="stylesheet" href="css/style.css" />
+</head>
+<body data-page="kelola-user" data-module="kelola_user">
+
+<div class="app-shell">
+
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-head">
+      <div class="sidebar-brand">
+        <img src="assets/logo.png" alt="Savoria Kreasi Rasa" />
+        <div>
+          <p class="sidebar-brand-name">Savoria</p>
+          <p class="sidebar-brand-sub">Maintenance app</p>
+        </div>
+      </div>
+    </div>
+    <a href="dashboard.html" class="sidebar-link" data-module="dashboard">Dashboard</a>
+      <a href="trend.html" class="sidebar-link" data-module="trend">Trend</a>
+      <a href="laporan.html" class="sidebar-link" data-module="reports">Report</a>
+      <a href="pm.html" class="sidebar-link" data-module="utility">Utility</a>
+      <a href="production.html" class="sidebar-link" data-module="production">Production</a>
+      <a href="lubrication.html" class="sidebar-link" data-module="lubrication">Lubrication</a>
+      <a href="qrcode.html" class="sidebar-link" data-module="qrcode">QR Mesin</a>
+      <a href="riwayat-mesin.html" class="sidebar-link" data-module="riwayat_mesin">Riwayat Mesin</a>
+      <a href="draft.html" class="sidebar-link" data-module="draft">Draft</a>
+      <a href="kelola-user.html" class="sidebar-link" data-module="kelola_user">Kelola User</a>
+      <a href="online.html" class="sidebar-link" data-module="online">Online Sekarang</a>
+      <a href="export-data.html" class="sidebar-link" data-module="export_data">Export Data</a>
+      <a href="bersihkan-data.html" class="sidebar-link" data-module="bersihkan_data">Bersihkan Data</a>
+      <a href="audit-log.html" class="sidebar-link" data-module="audit_log">Audit Log</a>
+  </aside>
+
+  <div class="app-main">
+
+    <div class="topbar">
+      <div class="topbar-inner">
+        <div class="topbar-logo">
+          <img src="assets/logo.png" alt="Savoria Kreasi Rasa" />
+        </div>
+        <div class="topbar-text">
+          <span class="topbar-title">Kelola User</span>
+          <span class="topbar-sub">Akun operator, SPV, &amp; superadmin</span>
+        </div>
+        <button type="button" class="menu-btn" id="btn-menu" aria-label="Buka menu">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+
+    <main class="wrap wrap-wide">
+
+      <div class="rekap-toolbar">
+        <p class="rekap-count" id="user-count">Memuat data…</p>
+        <button type="button" id="btn-tambah-user" class="btn-export">+ Tambah User</button>
+      </div>
+
+      <p class="form-error" id="user-error" hidden></p>
+
+      <div class="table-wrap">
+        <table id="user-table">
+          <thead>
+            <tr>
+              <th>Username</th>
+              <th>Nama</th>
+              <th>Role</th>
+              <th>Status</th>
+              <th>Aksi</th>
+            </tr>
+          </thead>
+          <tbody id="user-tbody">
+            <tr><td colspan="5" class="table-empty">Memuat data…</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+    </main>
+
+  </div>
+
+</div>
+
+<div class="sidebar-overlay" id="sidebar-overlay"></div>
+
+<!-- MODAL TAMBAH / EDIT USER -->
+<div class="pm-detail-overlay" id="user-form-overlay" hidden>
+  <div class="pm-detail-card">
+    <button type="button" class="pm-detail-close" id="user-form-close" aria-label="Tutup">&times;</button>
+    <p class="pm-detail-title" id="user-form-title">Tambah User</p>
+    <p class="pm-detail-sub" id="user-form-sub">Isi data akun baru.</p>
+
+    <form id="user-form">
+      <label class="field-label" for="uf-username">Username</label>
+      <input type="text" id="uf-username" class="gate-input" placeholder="mis. budi.spv" autocomplete="off" required />
+
+      <label class="field-label" for="uf-nama">Nama</label>
+      <input type="text" id="uf-nama" class="gate-input" placeholder="Nama lengkap" autocomplete="off" />
+
+      <label class="field-label" for="uf-role">Role</label>
+      <select id="uf-role" class="gate-input">
+        <option value="operator_utility">Operator Utility</option>
+        <option value="operator_production">Operator Production</option>
+        <option value="operator_lubrication">Operator Lubrication</option>
+        <option value="spv_utility">SPV Utility</option>
+        <option value="spv_production">SPV Production</option>
+        <option value="spv_lubrication">SPV Lubrication</option>
+        <option value="hod_engineering">HOD Engineering</option>
+        <option value="superadmin">Superadmin</option>
+      </select>
+
+      <div id="uf-password-wrap">
+        <label class="field-label" for="uf-password">Password awal</label>
+        <input type="password" id="uf-password" class="gate-input" placeholder="Minimal 6 karakter" autocomplete="new-password" />
+      </div>
+
+      <p class="field-error" id="user-form-error" hidden></p>
+      <button type="submit" class="btn-submit" id="user-form-submit">Simpan</button>
+    </form>
+  </div>
+</div>
+
+<!-- MODAL RESET PASSWORD -->
+<div class="pm-detail-overlay" id="reset-overlay" hidden>
+  <div class="pm-detail-card reject-modal-card">
+    <button type="button" class="pm-detail-close" id="reset-close" aria-label="Tutup">&times;</button>
+    <p class="pm-detail-title">Reset password</p>
+    <p class="pm-detail-sub" id="reset-target-label"></p>
+    <label class="field-label" for="reset-password">Password baru</label>
+    <input type="password" id="reset-password" class="gate-input" placeholder="Minimal 6 karakter" autocomplete="new-password" />
+    <p class="field-error" id="reset-error" hidden>Password minimal 6 karakter.</p>
+    <button type="button" id="reset-confirm" class="btn-submit reject-confirm-btn">Simpan password baru</button>
+  </div>
+</div>
+
+<script src="js/i18n.js"></script>
+<script src="js/sidebar.js"></script>
+<script type="module" src="js/auth.js"></script>
+<script type="module" src="js/kelola-user.js"></script>
+<script src="js/pwa.js"></script>
+</body>
+</html>
