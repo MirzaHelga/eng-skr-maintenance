@@ -66,7 +66,7 @@
       <div class="dash-header">
         <div>
           <p class="dash-header-title">Riwayat Mesin</p>
-          <p class="dash-header-date">Pilih equipment untuk lihat semua histori laporannya</p>
+          <p class="dash-header-date">Pilih equipment untuk lihat semua histori laporan, checklist PM &amp; Production-nya</p>
         </div>
       </div>
 
@@ -145,11 +145,16 @@
             <span class="dash-stat-label">Laporan terakhir</span>
             <span class="dash-stat-value rw-stat-last" id="rw-stat-last">–</span>
           </div>
+          <div class="dash-stat-card">
+            <span class="dash-stat-label">Checklist PM &amp; Production</span>
+            <span class="dash-stat-value" id="rw-stat-checklist">–</span>
+          </div>
         </section>
 
         <!-- TIMELINE -->
         <section class="rw-timeline-wrap">
-          <p class="dash-recent-title rw-timeline-title">Timeline laporan</p>
+          <p class="dash-recent-title rw-timeline-title">Timeline riwayat</p>
+          <p class="rw-timeline-note">Checklist PM &amp; Production dicocokkan otomatis dari isian nama equipment-nya (bukan relasi langsung ke master data) — bisa saja ada yang meleset kalau namanya diketik beda.</p>
           <div id="rw-timeline" class="rw-timeline"></div>
         </section>
 

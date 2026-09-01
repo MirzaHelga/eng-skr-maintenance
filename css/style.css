@@ -2885,6 +2885,13 @@ thead .checklist-grid-uraian-head {
 .rw-timeline-dot--standby { background: var(--standby); }
 .rw-timeline-dot--maintenance { background: var(--maintenance); }
 .rw-timeline-dot--breakdown { background: var(--breakdown); }
+.rw-timeline-dot--checklist { background: var(--steel); }
+
+.rw-timeline-note {
+  margin: -8px 0 16px;
+  font-size: 12px;
+  color: var(--ink-soft);
+}
 
 .rw-timeline-content {
   flex: 1;

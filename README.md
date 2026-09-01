@@ -108,17 +108,25 @@ dilihat dengan cari manual satu-satu di tabel Rekap. Sekarang:
   `riwayat-mesin.html?equipment=<id>`, mis. dari halaman lain nanti).
 - Kartu ringkasan: total laporan, jumlah breakdown/maintenance/running,
   dan status laporan terakhir.
-- **Timeline** kronologis semua laporan equipment itu — status,
-  tanggal/jam/shift, deskripsi, PIC, status review (termasuk alasan
-  kalau ditolak), dan thumbnail foto (klik buat lihat ukuran penuh).
+- **Timeline** kronologis gabungan Laporan Mesin, Checklist PM, dan
+  Checklist Production untuk equipment itu — status/detail masing-masing,
+  tanggal, status review (termasuk alasan kalau ditolak), dan thumbnail
+  foto (klik buat lihat ukuran penuh).
 - Bisa difilter rentang tanggal.
 - Tombol "+ Laporan baru mesin ini" langsung ke form Laporan Mesin
   dengan equipment yang sama sudah terisi (pakai mekanisme yang sama
   dengan QR Mesin).
-- **Batasan sama seperti QR Mesin**: timeline ini isinya laporan dari
-  tabel `laporan` saja. Checklist PM/Production belum ikut karena
-  strukturnya belum terhubung ke tabel `equipment` (lihat catatan di
-  bagian QR Mesin).
+- **Cara nyambungin Checklist PM/Production ke equipment**: field
+  `equipment` di kedua tabel itu isian bebas (bukan relasi ke tabel
+  `equipment`), jadi dicocokkan otomatis pakai `ILIKE %nama equipment%`
+  terhadap nama equipment yang dipilih. Cukup akurat kalau operator
+  ngetik equipment sesuai/mirip nama di master data, tapi bisa meleset
+  (kelewat atau ketangkep entri yang salah) kalau penulisannya beda
+  jauh — ada catatan kecil soal ini di halamannya.
+- **Lubrication belum ikut**: modul Lubrication tidak berbasis
+  equipment sama sekali (per **Line** produksi, isinya banyak titik
+  lubrikasi lintas mesin dalam 1 line), jadi belum ada cara wajar buat
+  menyambungkannya ke 1 equipment tertentu di halaman ini.
 
 ## Trend & Analytics (`trend.html`)
 

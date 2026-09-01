@@ -6,6 +6,7 @@ import { logAudit } from "./audit.js";
 const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
 const tabs = document.getElementById("draft-tabs");
+const deptTabs = document.getElementById("draft-dept-tabs");
 const draftError = document.getElementById("draft-error");
 const draftCount = document.getElementById("draft-count");
 const draftList = document.getElementById("draft-list");
@@ -27,7 +28,25 @@ const detailFoto = document.getElementById("pm-detail-foto");
 const detailCatatan = document.getElementById("pm-detail-catatan");
 
 let currentStatus = "draft";
+let currentDept = "all";
 let pendingReject = null; // { tipe, id }
+
+// Jenis data per departemen. Laporan Mesin & Checklist PM masuk
+// Utility, sesuai pembagian modul Utility/Production/Lubrication di
+// sidebar (lihat PERMISSIONS di js/auth.js).
+const DEPT_TIPES = {
+  utility: ["laporan", "pm_checklist"],
+  production: ["production_checklist"],
+  lubrication: ["lubrication_checklist"],
+};
+
+// SPV per departemen cuma boleh lihat draft departemennya sendiri —
+// HOD Engineering & Superadmin bisa lihat semua & pindah-pindah tab.
+const DEPT_RESTRICTED_BY_ROLE = {
+  spv_utility: "utility",
+  spv_production: "production",
+  spv_lubrication: "lubrication",
+};
 
 const STATUS_MESIN_CLASS = {
   Running: "running",
@@ -143,12 +162,17 @@ async function loadDrafts() {
     return;
   }
 
-  const items = [
+  let items = [
     ...(laporanRes.data || []).map((row) => ({ tipe: "laporan", row })),
     ...(checklistRes.data || []).map((row) => ({ tipe: "pm_checklist", row })),
     ...(productionRes.data || []).map((row) => ({ tipe: "production_checklist", row })),
     ...(lubricationRes.data || []).map((row) => ({ tipe: "lubrication_checklist", row })),
   ].sort((a, b) => new Date(b.row.created_at) - new Date(a.row.created_at));
+
+  if (currentDept !== "all") {
+    const allowedTipes = DEPT_TIPES[currentDept] || [];
+    items = items.filter((item) => allowedTipes.includes(item.tipe));
+  }
 
   draftCount.textContent = `${items.length} data ditemukan`;
   renderList(items);
@@ -622,11 +646,38 @@ tabs.addEventListener("click", (e) => {
   loadDrafts();
 });
 
+deptTabs.addEventListener("click", (e) => {
+  const tab = e.target.closest(".draft-tab");
+  if (!tab) return;
+  deptTabs.querySelectorAll(".draft-tab").forEach((t) => t.classList.remove("active"));
+  tab.classList.add("active");
+  currentDept = tab.dataset.dept;
+  loadDrafts();
+});
+
+// SPV per departemen (Utility/Production/Lubrication) cuma boleh lihat
+// draft departemennya sendiri — tab "Semua Departemen" & tab
+// departemen lain disembunyikan, dan tab departemennya langsung aktif.
+// HOD Engineering & Superadmin tetap lihat & bisa pindah ke semua tab.
+function restrictDeptTabsByRole() {
+  const role = getSession()?.role;
+  const restrictedDept = DEPT_RESTRICTED_BY_ROLE[role];
+  if (!restrictedDept) return;
+
+  deptTabs.querySelectorAll(".draft-tab").forEach((t) => {
+    const isOwn = t.dataset.dept === restrictedDept;
+    t.hidden = !isOwn;
+    t.classList.toggle("active", isOwn);
+  });
+  currentDept = restrictedDept;
+}
+
 // Buka halaman Draft = notifikasi yang menunggu dianggap sudah dilihat.
 async function markAllNotificationsRead() {
   const { error } = await supabase.from("notifikasi").update({ dibaca: true }).eq("dibaca", false);
   if (error) console.error("Gagal menandai notifikasi terbaca:", error);
 }
 
+restrictDeptTabsByRole();
 loadDrafts();
 markAllNotificationsRead();

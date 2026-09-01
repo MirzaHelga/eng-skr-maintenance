@@ -16,6 +16,7 @@ const REVIEW_LABEL = {
 const chkLaporan = document.getElementById("f-jenis-laporan");
 const chkPm = document.getElementById("f-jenis-pm");
 const chkProduction = document.getElementById("f-jenis-production");
+const chkLubrication = document.getElementById("f-jenis-lubrication");
 
 const chkDraft = document.getElementById("f-status-draft");
 const chkApproved = document.getElementById("f-status-approved");
@@ -114,6 +115,29 @@ const DATA_TYPES = {
     }),
     colWidths: [11, 32, 18, 10, 22, 16, 14, 16, 16, 30, 60, 40, 16, 18, 30],
   },
+  lubrication: {
+    label: "Checklist Lubrication",
+    sheetName: "Checklist Lubrication",
+    table: "lubrication_checklist_submission",
+    dateField: "tanggal_inspeksi",
+    selectFields:
+      "line_key, line_label, bulan_tahun, items, tanggal_inspeksi, checked_by_opr, catatan, review_status, reviewed_by, reviewed_at, reject_reason, lubrication_checklist_foto(foto_url)",
+    orderField: "tanggal_inspeksi",
+    toRow: (row) => ({
+      Tanggal: formatTanggal(row.tanggal_inspeksi),
+      Line: row.line_label ?? "",
+      "Bulan/Tahun": row.bulan_tahun ?? "",
+      "Diperiksa OPR": row.checked_by_opr ?? "",
+      "Diperiksa SPV": row.review_status !== "draft" ? row.reviewed_by || "" : "",
+      Catatan: row.catatan ?? "",
+      "Isian Checklist": ringkasanItemsLubrication(row.items),
+      "Link Foto": (row.lubrication_checklist_foto || []).map((f) => f.foto_url).join("; "),
+      Review: REVIEW_LABEL[row.review_status] || row.review_status || "",
+      "Tanggal Direview": formatTanggalWaktu(row.reviewed_at),
+      "Alasan Ditolak": row.reject_reason ?? "",
+    }),
+    colWidths: [11, 22, 14, 16, 16, 30, 70, 40, 16, 18, 30],
+  },
 };
 
 // ---------- HELPERS ----------
@@ -137,11 +161,27 @@ function ringkasanItems(itemsRaw) {
     : items.map((it) => `${it.uraian}: ${it.hasil || "—"}${it.keterangan ? ` (${it.keterangan})` : ""}`).join(" | ");
 }
 
+// Struktur items lubrication beda dari PM/Production (titik lubrikasi,
+// bukan uraian), jadi butuh ringkasan sendiri.
+function ringkasanItemsLubrication(itemsRaw) {
+  const items = itemsRaw || [];
+  return items
+    .map((it) => {
+      const parts = [it.dilakukan || "—"];
+      if (it.statusAktual) parts.push(`Status: ${it.statusAktual}`);
+      if (it.qtyAktual) parts.push(`Qty: ${it.qtyAktual}`);
+      if (it.keterangan) parts.push(it.keterangan);
+      return `${it.titik ?? ""}${it.critical ? " (critical)" : ""}: ${parts.join(", ")}`;
+    })
+    .join(" | ");
+}
+
 function selectedTypes() {
   const types = [];
   if (chkLaporan.checked) types.push("laporan");
   if (chkPm.checked) types.push("pm");
   if (chkProduction.checked) types.push("production");
+  if (chkLubrication.checked) types.push("lubrication");
   return types;
 }
 
@@ -196,6 +236,13 @@ async function fetchAllRows(cfg, statuses, dateMode, dari, sampai) {
 
   return allRows;
 }
+
+const ENTITY_TYPE_BY_JENIS = {
+  laporan: "laporan",
+  pm: "pm_checklist",
+  production: "production_checklist",
+  lubrication: "lubrication_checklist",
+};
 
 // ---------- EXPORT ----------
 btnExport.addEventListener("click", async () => {
@@ -262,7 +309,7 @@ btnExport.addEventListener("click", async () => {
       actorNama: session?.nama,
       actorRole: session?.role,
       action: "export_data",
-      entityType: types.length === 1 ? types[0] === "pm" ? "pm_checklist" : types[0] === "production" ? "production_checklist" : "laporan" : null,
+      entityType: types.length === 1 ? ENTITY_TYPE_BY_JENIS[types[0]] : null,
       entityLabel: types.map((t) => DATA_TYPES[t].label).join(", "),
       detail: `${summary.join(", ")} · ${rentang} · Status: ${statuses.join(", ")}`,
     });

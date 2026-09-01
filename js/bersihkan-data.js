@@ -37,6 +37,15 @@ const DATA_TYPES = {
     getFotos: (row) => row.production_checklist_foto || [],
     renderDetail: (row) => `${row.checklist_title} — ${row.equipment} / ${row.area} (${row.periode_label})`,
   },
+  lubrication: {
+    table: "lubrication_checklist_submission",
+    fotoTable: "lubrication_checklist_foto",
+    bucket: "foto-lubrication-checklist",
+    selectFields:
+      "id, line_label, bulan_tahun, tanggal_inspeksi, reviewed_at, reviewed_by, lubrication_checklist_foto(foto_url)",
+    getFotos: (row) => row.lubrication_checklist_foto || [],
+    renderDetail: (row) => `Lubrication — ${row.line_label ?? "-"} (${row.bulan_tahun ?? "-"})`,
+  },
 };
 
 // ---------- ELEMENTS ----------
