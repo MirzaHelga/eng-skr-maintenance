@@ -91,7 +91,7 @@ async function loadStats() {
 
 // ---------- DRAFT MENUNGGU REVIEW ----------
 async function loadDraftCount() {
-  const [laporanRes, checklistRes, productionRes] = await Promise.all([
+  const [laporanRes, checklistRes, productionRes, lubricationRes] = await Promise.all([
     supabase.from("laporan").select("id", { count: "exact", head: true }).eq("review_status", "draft"),
     supabase
       .from("pm_checklist_submission")
@@ -101,15 +101,21 @@ async function loadDraftCount() {
       .from("production_checklist_submission")
       .select("id", { count: "exact", head: true })
       .eq("review_status", "draft"),
+    supabase
+      .from("lubrication_checklist_submission")
+      .select("id", { count: "exact", head: true })
+      .eq("review_status", "draft"),
   ]);
 
-  if (laporanRes.error || checklistRes.error || productionRes.error) {
-    console.error(laporanRes.error || checklistRes.error || productionRes.error);
+  if (laporanRes.error || checklistRes.error || productionRes.error || lubricationRes.error) {
+    console.error(laporanRes.error || checklistRes.error || productionRes.error || lubricationRes.error);
     statDraft.textContent = "–";
     return;
   }
 
-  statDraft.textContent = String((laporanRes.count || 0) + (checklistRes.count || 0) + (productionRes.count || 0));
+  statDraft.textContent = String(
+    (laporanRes.count || 0) + (checklistRes.count || 0) + (productionRes.count || 0) + (lubricationRes.count || 0)
+  );
 }
 
 function renderDashDate() {
