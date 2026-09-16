@@ -363,6 +363,39 @@ form {
   letter-spacing: 0.04em;
 }
 
+.field-label-hint {
+  text-transform: none;
+  font-weight: 500;
+  letter-spacing: normal;
+  color: var(--ink-soft);
+}
+
+.role-checkbox-group {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 8px 12px;
+  padding: 12px 14px;
+  border-radius: var(--radius);
+  border: 1.5px solid var(--line);
+  background: var(--card);
+}
+
+.role-checkbox {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 14px;
+  color: var(--ink);
+  cursor: pointer;
+}
+
+.role-checkbox input[type="checkbox"] {
+  width: 16px;
+  height: 16px;
+  flex-shrink: 0;
+  accent-color: var(--steel);
+}
+
 select, input[type="text"], input[type="date"], input[type="time"], textarea {
   font-family: var(--font-body);
   font-size: 16px;
@@ -2152,6 +2185,13 @@ thead .checklist-grid-uraian-head {
 .sidebar-role-dot--operator { background: var(--steel); }
 .sidebar-role-dot--spv { background: var(--amber); }
 .sidebar-role-dot--superadmin { background: var(--red, #d64545); }
+.sidebar-role-dot--operator_utility,
+.sidebar-role-dot--operator_production,
+.sidebar-role-dot--operator_lubrication { background: var(--steel); }
+.sidebar-role-dot--spv_utility,
+.sidebar-role-dot--spv_production,
+.sidebar-role-dot--spv_lubrication { background: var(--amber); }
+.sidebar-role-dot--hod_engineering { background: var(--steel-dark); }
 
 .sidebar-role-name {
   margin: 0;

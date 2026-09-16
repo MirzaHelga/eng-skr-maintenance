@@ -108,17 +108,9 @@
       <label class="field-label" for="uf-nama">Nama</label>
       <input type="text" id="uf-nama" class="gate-input" placeholder="Nama lengkap" autocomplete="off" />
 
-      <label class="field-label" for="uf-role">Role</label>
-      <select id="uf-role" class="gate-input">
-        <option value="operator_utility">Operator Utility</option>
-        <option value="operator_production">Operator Production</option>
-        <option value="operator_lubrication">Operator Lubrication</option>
-        <option value="spv_utility">SPV Utility</option>
-        <option value="spv_production">SPV Production</option>
-        <option value="spv_lubrication">SPV Lubrication</option>
-        <option value="hod_engineering">HOD Engineering</option>
-        <option value="superadmin">Superadmin</option>
-      </select>
+      <label class="field-label">Role <span class="field-label-hint">(bisa pilih lebih dari 1)</span></label>
+      <div class="role-checkbox-group" id="uf-role-group"></div>
+      <p class="field-error" id="uf-role-error" hidden>Pilih minimal 1 role.</p>
 
       <div id="uf-password-wrap">
         <label class="field-label" for="uf-password">Password awal</label>

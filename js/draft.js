@@ -1,6 +1,6 @@
 import { createClient } from "https://esm.sh/@supabase/supabase-js@2";
 import { SUPABASE_URL, SUPABASE_ANON_KEY } from "./config.js";
-import { displayName, getSession } from "./auth.js";
+import { displayName, getSession, rolesLabel } from "./auth.js";
 import { logAudit } from "./audit.js";
 
 const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
@@ -38,14 +38,6 @@ const DEPT_TIPES = {
   utility: ["laporan", "pm_checklist"],
   production: ["production_checklist"],
   lubrication: ["lubrication_checklist"],
-};
-
-// SPV per departemen cuma boleh lihat draft departemennya sendiri —
-// HOD Engineering & Superadmin bisa lihat semua & pindah-pindah tab.
-const DEPT_RESTRICTED_BY_ROLE = {
-  spv_utility: "utility",
-  spv_production: "production",
-  spv_lubrication: "lubrication",
 };
 
 const STATUS_MESIN_CLASS = {
@@ -362,7 +354,7 @@ async function approveItem(tipe, id, label) {
     actorId: session?.userId,
     actorUsername: session?.username,
     actorNama: session?.nama,
-    actorRole: session?.role,
+    actorRole: rolesLabel(session?.roles),
     action: "approve",
     entityType: tipe,
     entityId: id,
@@ -420,7 +412,7 @@ rejectConfirm.addEventListener("click", async () => {
     actorId: session?.userId,
     actorUsername: session?.username,
     actorNama: session?.nama,
-    actorRole: session?.role,
+    actorRole: rolesLabel(session?.roles),
     action: "reject",
     entityType: tipe,
     entityId: id,
@@ -656,20 +648,36 @@ deptTabs.addEventListener("click", (e) => {
 });
 
 // SPV per departemen (Utility/Production/Lubrication) cuma boleh lihat
-// draft departemennya sendiri — tab "Semua Departemen" & tab
-// departemen lain disembunyikan, dan tab departemennya langsung aktif.
-// HOD Engineering & Superadmin tetap lihat & bisa pindah ke semua tab.
+// draft departemen yang jadi hak salah satu role-nya — tab
+// "Semua Departemen" & tab departemen lain disembunyikan. Kalau
+// role-nya SPV di lebih dari 1 departemen (mis. SPV Utility + SPV
+// Production dalam 1 akun), tab kedua departemen itu tetap kelihatan
+// (plus tab "Semua Departemen" biar bisa lihat gabungannya).
+// HOD Engineering & Superadmin (di salah satu role-nya) tetap lihat
+// & bisa pindah ke semua tab, tanpa dibatasi.
 function restrictDeptTabsByRole() {
-  const role = getSession()?.role;
-  const restrictedDept = DEPT_RESTRICTED_BY_ROLE[role];
-  if (!restrictedDept) return;
+  const roles = getSession()?.roles || [];
+  if (roles.some((r) => r === "hod_engineering" || r === "superadmin")) return;
+
+  const allowedDepts = Object.keys(DEPT_TIPES).filter((dept) =>
+    roles.includes(`spv_${dept}`)
+  );
+  if (allowedDepts.length === 0) return; // gak ada role SPV sama sekali — biarin default (harusnya gak kejadian, halaman ini sudah digerbang PERMISSIONS.draft)
 
   deptTabs.querySelectorAll(".draft-tab").forEach((t) => {
-    const isOwn = t.dataset.dept === restrictedDept;
-    t.hidden = !isOwn;
-    t.classList.toggle("active", isOwn);
+    const dept = t.dataset.dept;
+    const isAll = dept === "all";
+    const isOwn = allowedDepts.includes(dept);
+    // Tab "Semua Departemen" cuma ditampilkan kalau role-nya nyangkut
+    // lebih dari 1 departemen — kalau cuma 1, gak ada gunanya karena
+    // sama aja isinya dengan tab departemen itu sendiri.
+    const show = isOwn || (isAll && allowedDepts.length > 1);
+    t.hidden = !show;
   });
-  currentDept = restrictedDept;
+
+  const defaultDept = allowedDepts.length === 1 ? allowedDepts[0] : "all";
+  deptTabs.querySelectorAll(".draft-tab").forEach((t) => t.classList.toggle("active", t.dataset.dept === defaultDept));
+  currentDept = defaultDept;
 }
 
 // Buka halaman Draft = notifikasi yang menunggu dianggap sudah dilihat.

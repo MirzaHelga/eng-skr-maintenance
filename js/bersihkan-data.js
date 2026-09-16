@@ -1,6 +1,6 @@
 import { createClient } from "https://esm.sh/@supabase/supabase-js@2";
 import { SUPABASE_URL, SUPABASE_ANON_KEY } from "./config.js";
-import { getSession } from "./auth.js";
+import { getSession, rolesLabel } from "./auth.js";
 import { logAuditBulk } from "./audit.js";
 
 const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
@@ -271,7 +271,7 @@ confirmHapus.addEventListener("click", async () => {
         actorId: session?.userId,
         actorUsername: session?.username,
         actorNama: session?.nama,
-        actorRole: session?.role,
+        actorRole: rolesLabel(session?.roles),
         action: "hapus_data",
         entityType: type,
         entityId: row.id,

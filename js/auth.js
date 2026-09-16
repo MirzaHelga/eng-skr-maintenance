@@ -27,6 +27,9 @@ export const ROLE_LABEL = {
 };
 
 // Semua role yang boleh dipilih untuk akun BARU lewat Kelola User.
+// 1 akun sekarang bisa punya LEBIH DARI SATU role (bebas campur level
+// & departemen, mis. Operator Utility + SPV Production) — lihat
+// sql/20_add_multi_role.sql.
 export const ASSIGNABLE_ROLES = [
   "operator_utility",
   "operator_production",
@@ -37,6 +40,44 @@ export const ASSIGNABLE_ROLES = [
   "hod_engineering",
   "superadmin",
 ];
+
+// Urutan "keluasan akses" role, dipakai buat nentuin role UTAMA kalau
+// 1 akun punya beberapa role sekaligus — dipakai untuk hal yang cuma
+// butuh 1 nilai (halaman default setelah login, warna dot sidebar,
+// dsb). Makin besar angkanya, makin luas aksesnya.
+const ROLE_RANK = {
+  superadmin: 5,
+  hod_engineering: 4,
+  spv_utility: 3,
+  spv_production: 3,
+  spv_lubrication: 3,
+  operator_utility: 2,
+  operator_production: 2,
+  operator_lubrication: 2,
+  // Legacy
+  spv: 3,
+  operator: 2,
+};
+
+// Dari beberapa role 1 akun, pilih 1 sebagai "role utama" (akses
+// paling luas). Kalau ada beberapa role dengan keluasan sama (mis.
+// SPV Utility + SPV Production), dipilih yang paling awal di
+// ASSIGNABLE_ROLES biar hasilnya konsisten/predictable.
+export function primaryRole(roles) {
+  const list = (roles || []).filter(Boolean);
+  if (list.length === 0) return null;
+  return [...list].sort((a, b) => {
+    const diff = (ROLE_RANK[b] || 0) - (ROLE_RANK[a] || 0);
+    if (diff !== 0) return diff;
+    return ASSIGNABLE_ROLES.indexOf(a) - ASSIGNABLE_ROLES.indexOf(b);
+  })[0];
+}
+
+// Label gabungan semua role 1 akun, buat ditampilin (mis. "Operator
+// Utility + SPV Production").
+export function rolesLabel(roles) {
+  return (roles || []).map((r) => ROLE_LABEL[r] || r).join(" + ");
+}
 
 // Halaman default per role setelah login / kalau nyasar ke halaman
 // yang bukan haknya.
@@ -97,10 +138,10 @@ export function isSpvOrAbove(role) {
   );
 }
 
-function moduleAllowsRole(moduleKey, role) {
+function moduleAllowsRole(moduleKey, roles) {
   const allowed = PERMISSIONS[moduleKey];
   if (!allowed) return false;
-  return allowed.includes(role);
+  return (roles || []).some((r) => allowed.includes(r));
 }
 
 // ---------- HASH PASSWORD (SHA-256, lewat Web Crypto API bawaan browser) ----------
@@ -125,7 +166,7 @@ export async function loginWithUsername(username, password) {
 
   const { data, error } = await supabase
     .from("app_user")
-    .select("id, username, nama, role, password_hash, is_active")
+    .select("id, username, nama, role, roles, password_hash, is_active")
     .eq("username", uname)
     .maybeSingle();
 
@@ -167,7 +208,7 @@ export async function loginWithUsername(username, password) {
     actorId: data.id,
     actorUsername: data.username,
     actorNama: data.nama,
-    actorRole: data.role,
+    actorRole: rolesLabel(data.roles && data.roles.length ? data.roles : [data.role]),
     action: "login_berhasil",
     entityType: "auth",
     entityId: data.id,
@@ -184,6 +225,9 @@ export function getSession() {
     if (!raw) return null;
     const parsed = JSON.parse(raw);
     if (!parsed || !parsed.role) return null;
+    // Jaga-jaga kalau ada sesi lama (sebelum modul multi-role) yang
+    // masih nyangkut di sessionStorage tab yang belum ditutup.
+    if (!parsed.roles || !parsed.roles.length) parsed.roles = [parsed.role];
     return parsed;
   } catch {
     return null;
@@ -194,14 +238,18 @@ export function getRole() {
   return getSession()?.role || null;
 }
 
-// user = baris dari tabel app_user (id, username, nama, role, ...)
+// user = baris dari tabel app_user (id, username, nama, role, roles, ...)
 export function setSession(user) {
+  const roles = user.roles && user.roles.length ? user.roles : user.role ? [user.role] : [];
   sessionStorage.setItem(
     SESSION_KEY,
     JSON.stringify({
       userId: user.id,
       username: user.username,
-      role: user.role,
+      roles,
+      // Role utama (akses paling luas) — dipakai kode lama yang masih
+      // butuh 1 nilai (isSpvOrAbove, DEFAULT_PAGE, warna dot sidebar).
+      role: primaryRole(roles),
       nama: (user.nama || "").trim(),
       loginAt: Date.now(),
     })
@@ -271,46 +319,47 @@ function guard() {
     window.location.href = "index.html?next=" + encodeURIComponent(currentPageFile());
     return;
   }
-  if (!moduleAllowsRole(moduleKey, session.role)) {
+  if (!moduleAllowsRole(moduleKey, session.roles)) {
     window.location.href = DEFAULT_PAGE[session.role] || "index.html";
     return;
   }
 
-  initShell(session.role);
+  initShell(session);
   startPresenceTracking(session);
 }
 
 // ---------- SIDEBAR + TOPBAR SESUAI ROLE ----------
-function initShell(role) {
-  // Sembunyikan link sidebar yang bukan hak role ini. Tiap link
-  // ditandai data-module="<key>" sesuai PERMISSIONS di atas.
+function initShell(session) {
+  // Sembunyikan link sidebar yang bukan hak SATU PUN role akun ini.
+  // Tiap link ditandai data-module="<key>" sesuai PERMISSIONS di atas.
   document.querySelectorAll(".sidebar-link[data-module]").forEach((link) => {
-    if (!moduleAllowsRole(link.dataset.module, role)) {
+    if (!moduleAllowsRole(link.dataset.module, session.roles)) {
       link.remove();
     }
   });
 
-  addSidebarFooter(role);
+  addSidebarFooter(session);
 
-  if (isSpvOrAbove(role)) {
+  if (isSpvOrAbove(session.role)) {
     setupNotificationBell();
   }
 }
 
-function addSidebarFooter(role) {
+function addSidebarFooter(session) {
   const sidebar = document.getElementById("sidebar");
   if (!sidebar) return;
 
+  const role = session.role; // role utama (akses paling luas), buat warna dot
   const footer = document.createElement("div");
   footer.className = "sidebar-footer";
-  const session = getSession();
   const namaText = session?.nama ? escapeHtml(session.nama) : ROLE_LABEL[role];
+  const roleLabelText = session.roles && session.roles.length > 1 ? rolesLabel(session.roles) : ROLE_LABEL[role];
   footer.innerHTML = `
     <div class="sidebar-role">
       <span class="sidebar-role-dot sidebar-role-dot--${role}"></span>
       <div>
         <p class="sidebar-role-name">${namaText}</p>
-        <p class="sidebar-role-label">${ROLE_LABEL[role]}</p>
+        <p class="sidebar-role-label">${escapeHtml(roleLabelText)}</p>
       </div>
     </div>
     <button type="button" class="sidebar-logout" id="btn-logout">Keluar</button>

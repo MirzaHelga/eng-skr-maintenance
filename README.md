@@ -50,6 +50,28 @@ oleh migration ini (tidak dihapus, tidak dipindah departemen secara
 otomatis karena datanya tidak diketahui) — buat ulang akunnya lewat
 **Kelola User** dengan role baru yang sesuai.
 
+### Multi-role per akun
+
+Mulai migration `sql/20_add_multi_role.sql`, **1 akun bisa punya lebih
+dari 1 role sekaligus**, bebas campur level & departemen (mis. akun
+yang sama jadi Operator Utility **dan** SPV Production). Diatur lewat
+checkbox di modal Tambah/Edit User (`kelola-user.html`), disimpan di
+kolom `roles` (array) pada tabel `app_user`.
+
+- **Akses menu/halaman**: kebuka kalau SALAH SATU role akun itu punya
+  hak ke menu tersebut (union, bukan irisan) — lihat `moduleAllowsRole`
+  di `js/auth.js`.
+- **Role utama**: kalau suatu bagian aplikasi cuma butuh 1 nilai role
+  (halaman default setelah login, warna dot di sidebar), dipakai role
+  dengan akses PALING LUAS di antara semua role akun itu (Superadmin >
+  HOD Engineering > SPV > Operator) — dihitung otomatis oleh
+  `primaryRole()`, tidak perlu diisi manual.
+- **Tab departemen di halaman Draft**: kalau akun itu SPV di lebih
+  dari 1 departemen (mis. SPV Utility + SPV Production), tab kedua
+  departemen itu kelihatan semua (plus tab "Semua Departemen").
+- Kolom `role` (tunggal, lama) tetap ada untuk kompatibilitas & tempat
+  nyimpen role utama, tapi sumber kebenarannya sekarang `roles`.
+
 ## QR Mesin (`qrcode.html`)
 
 Tiap equipment di database otomatis dapat QR code sendiri (di-generate

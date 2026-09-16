@@ -1,4 +1,4 @@
-import { getRole, setSession, loginWithUsername, DEFAULT_PAGE } from "./auth.js";
+import { getRole, setSession, getSession, loginWithUsername, DEFAULT_PAGE } from "./auth.js";
 
 const form = document.getElementById("login-form");
 const inputUsername = document.getElementById("input-username");
@@ -54,7 +54,7 @@ form.addEventListener("submit", async (e) => {
     setSession(result.user);
     const params = new URLSearchParams(window.location.search);
     const next = params.get("next");
-    window.location.href = next || DEFAULT_PAGE[result.user.role] || "dashboard.html";
+    window.location.href = next || DEFAULT_PAGE[getSession()?.role] || "dashboard.html";
     return;
   }
 

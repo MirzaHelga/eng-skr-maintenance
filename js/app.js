@@ -122,7 +122,7 @@ function applyEquipmentFromQr() {
   selectMesin.dispatchEvent(new Event("change"));
 
   selectEquipment.value = equipment.id;
-
+}
 
 function fillSelect(selectEl, items, placeholder) {
   selectEl.innerHTML = "";

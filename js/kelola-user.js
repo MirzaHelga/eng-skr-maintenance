@@ -1,6 +1,6 @@
 import { createClient } from "https://esm.sh/@supabase/supabase-js@2";
 import { SUPABASE_URL, SUPABASE_ANON_KEY } from "./config.js";
-import { getSession, hashPassword, ROLE_LABEL } from "./auth.js";
+import { getSession, hashPassword, ROLE_LABEL, ASSIGNABLE_ROLES, primaryRole, rolesLabel } from "./auth.js";
 import { logAudit } from "./audit.js";
 
 const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
@@ -17,7 +17,8 @@ const formSub = document.getElementById("user-form-sub");
 const form = document.getElementById("user-form");
 const ufUsername = document.getElementById("uf-username");
 const ufNama = document.getElementById("uf-nama");
-const ufRole = document.getElementById("uf-role");
+const ufRoleGroup = document.getElementById("uf-role-group");
+const ufRoleError = document.getElementById("uf-role-error");
 const ufPasswordWrap = document.getElementById("uf-password-wrap");
 const ufPassword = document.getElementById("uf-password");
 const formError = document.getElementById("user-form-error");
@@ -43,12 +44,42 @@ function escapeHtml(str) {
   return div.innerHTML;
 }
 
+// ---------- ROLE CHECKBOX GROUP (multi-role per akun) ----------
+function buildRoleCheckboxes() {
+  ufRoleGroup.innerHTML = ASSIGNABLE_ROLES.map(
+    (r) => `
+      <label class="role-checkbox">
+        <input type="checkbox" value="${r}" />
+        ${escapeHtml(ROLE_LABEL[r] || r)}
+      </label>
+    `
+  ).join("");
+}
+buildRoleCheckboxes();
+
+function setSelectedRoles(roles) {
+  const set = new Set(roles || []);
+  ufRoleGroup.querySelectorAll('input[type="checkbox"]').forEach((cb) => {
+    cb.checked = set.has(cb.value);
+  });
+}
+
+function getSelectedRoles() {
+  return Array.from(ufRoleGroup.querySelectorAll('input[type="checkbox"]:checked')).map((cb) => cb.value);
+}
+
+// Akun lama (sebelum modul multi-role) bisa aja belum punya `roles`
+// terisi — fallback ke `role` tunggal biar tetap tampil benar.
+function rolesOf(u) {
+  return u.roles && u.roles.length ? u.roles : u.role ? [u.role] : [];
+}
+
 function actorFields() {
   return {
     actorId: session?.userId,
     actorUsername: session?.username,
     actorNama: session?.nama,
-    actorRole: session?.role,
+    actorRole: rolesLabel(session?.roles),
   };
 }
 
@@ -69,7 +100,7 @@ async function loadUsers() {
 
   const { data, error } = await supabase
     .from("app_user")
-    .select("id, username, nama, role, is_active, created_at")
+    .select("id, username, nama, role, roles, is_active, created_at")
     .order("created_at", { ascending: true });
 
   if (error) {
@@ -102,7 +133,7 @@ function renderTable() {
     tr.innerHTML = `
       <td>${escapeHtml(u.username)}${isSelf ? ' <span class="review-badge review-badge--draft">Kamu</span>' : ""}</td>
       <td>${escapeHtml(u.nama || "-")}</td>
-      <td>${ROLE_LABEL[u.role] || u.role}</td>
+      <td>${escapeHtml(rolesLabel(rolesOf(u)))}</td>
       <td><span class="review-badge review-badge--${u.is_active ? "approved" : "rejected"}">${
       u.is_active ? "Aktif" : "Nonaktif"
     }</span></td>
@@ -127,7 +158,8 @@ function openAddModal() {
   formTitle.textContent = "Tambah User";
   formSub.textContent = "Isi data akun baru.";
   form.reset();
-  ufRole.value = "operator_utility";
+  setSelectedRoles(["operator_utility"]);
+  ufRoleError.hidden = true;
   ufPasswordWrap.hidden = false;
   ufPassword.required = true;
   formError.hidden = true;
@@ -141,7 +173,8 @@ function openEditModal(u) {
   formSub.textContent = "Ubah data akun. Password tidak diubah di sini — pakai tombol Reset password.";
   ufUsername.value = u.username;
   ufNama.value = u.nama || "";
-  ufRole.value = u.role;
+  setSelectedRoles(rolesOf(u));
+  ufRoleError.hidden = true;
   ufPasswordWrap.hidden = true;
   ufPassword.required = false;
   ufPassword.value = "";
@@ -164,10 +197,11 @@ btnTambah.addEventListener("click", openAddModal);
 form.addEventListener("submit", async (e) => {
   e.preventDefault();
   formError.hidden = true;
+  ufRoleError.hidden = true;
 
   const username = ufUsername.value.trim().toLowerCase();
   const nama = ufNama.value.trim();
-  const role = ufRole.value;
+  const roles = getSelectedRoles();
 
   if (!username) {
     formError.hidden = false;
@@ -175,11 +209,18 @@ form.addEventListener("submit", async (e) => {
     return;
   }
 
-  // Cegah superadmin ganti role akun sendiri jadi bukan superadmin
-  // (biar tidak kekunci sendiri dari halaman ini).
-  if (editingId && session && session.userId === editingId && role !== "superadmin") {
+  if (roles.length === 0) {
+    ufRoleError.hidden = false;
+    return;
+  }
+
+  const role = primaryRole(roles); // role utama (akses paling luas), buat kolom legacy `role`
+
+  // Cegah superadmin lepas role Superadmin dari akun sendiri (biar
+  // tidak kekunci sendiri dari halaman ini).
+  if (editingId && session && session.userId === editingId && !roles.includes("superadmin")) {
     formError.hidden = false;
-    formError.textContent = "Kamu tidak bisa mengubah role akun sendiri jadi bukan Superadmin.";
+    formError.textContent = "Kamu tidak bisa melepas role Superadmin dari akun sendiri.";
     return;
   }
 
@@ -190,7 +231,7 @@ form.addEventListener("submit", async (e) => {
     if (editingId) {
       const { error } = await supabase
         .from("app_user")
-        .update({ username, nama, role, updated_at: new Date().toISOString() })
+        .update({ username, nama, role, roles, updated_at: new Date().toISOString() })
         .eq("id", editingId);
       if (error) throw error;
 
@@ -200,7 +241,7 @@ form.addEventListener("submit", async (e) => {
         entityType: "app_user",
         entityId: editingId,
         entityLabel: username,
-        detail: `Nama: ${nama || "-"} · Role: ${ROLE_LABEL[role] || role}`,
+        detail: `Nama: ${nama || "-"} · Role: ${rolesLabel(roles)}`,
       });
     } else {
       const password = ufPassword.value;
@@ -212,7 +253,7 @@ form.addEventListener("submit", async (e) => {
       const password_hash = await hashPassword(password);
       const { data: inserted, error } = await supabase
         .from("app_user")
-        .insert({ username, nama, role, password_hash })
+        .insert({ username, nama, role, roles, password_hash })
         .select("id")
         .single();
       if (error) throw error;
@@ -223,7 +264,7 @@ form.addEventListener("submit", async (e) => {
         entityType: "app_user",
         entityId: inserted?.id,
         entityLabel: username,
-        detail: `Nama: ${nama || "-"} · Role: ${ROLE_LABEL[role] || role}`,
+        detail: `Nama: ${nama || "-"} · Role: ${rolesLabel(roles)}`,
       });
     }
 

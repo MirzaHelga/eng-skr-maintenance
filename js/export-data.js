@@ -1,7 +1,7 @@
 import { createClient } from "https://esm.sh/@supabase/supabase-js@2";
 import * as XLSX from "https://esm.sh/xlsx@0.18.5";
 import { SUPABASE_URL, SUPABASE_ANON_KEY } from "./config.js";
-import { getSession } from "./auth.js";
+import { getSession, rolesLabel } from "./auth.js";
 import { logAudit } from "./audit.js";
 
 const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
@@ -307,7 +307,7 @@ btnExport.addEventListener("click", async () => {
       actorId: session?.userId,
       actorUsername: session?.username,
       actorNama: session?.nama,
-      actorRole: session?.role,
+      actorRole: rolesLabel(session?.roles),
       action: "export_data",
       entityType: types.length === 1 ? ENTITY_TYPE_BY_JENIS[types[0]] : null,
       entityLabel: types.map((t) => DATA_TYPES[t].label).join(", "),
