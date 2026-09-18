@@ -70,11 +70,11 @@ async function loadLaporan() {
   clearError();
   btnExport.disabled = true;
   rekapCount.textContent = "Memuat data…";
-  rekapTbody.innerHTML = `<tr><td colspan="12" class="table-empty">Memuat data…</td></tr>`;
+  rekapTbody.innerHTML = `<tr><td colspan="13" class="table-empty">Memuat data…</td></tr>`;
 
   let query = supabase
     .from("laporan")
-    .select("tanggal, jam_mulai, jam_selesai, shift, status, deskripsi, pic, review_status, reviewed_by, reject_reason, area:area_id(nama), mesin:mesin_id(nama), equipment:equipment_id(nama), laporan_foto(foto_url)")
+    .select("tanggal, jam_mulai, jam_selesai, shift, status, deskripsi, sparepart, pic, review_status, reviewed_by, reject_reason, area:area_id(nama), mesin:mesin_id(nama), equipment:equipment_id(nama), laporan_foto(foto_url)")
     .order("tanggal", { ascending: false })
     .order("jam_mulai", { ascending: false });
 
@@ -105,7 +105,7 @@ async function loadLaporan() {
 
 function renderTable(rows) {
   if (rows.length === 0) {
-    rekapTbody.innerHTML = `<tr><td colspan="12" class="table-empty">Tidak ada laporan untuk filter ini.</td></tr>`;
+    rekapTbody.innerHTML = `<tr><td colspan="13" class="table-empty">Tidak ada laporan untuk filter ini.</td></tr>`;
     return;
   }
 
@@ -123,6 +123,7 @@ function renderTable(rows) {
       <td>${row.equipment?.nama ?? ""}</td>
       <td><span class="status-badge status-${statusClass}">${row.status ?? ""}</span></td>
       <td class="col-deskripsi">${escapeHtml(row.deskripsi ?? "")}</td>
+      <td class="col-deskripsi">${escapeHtml(row.sparepart ?? "")}</td>
       <td>${row.pic ?? ""}</td>
       <td>${renderFotoLinks(row.laporan_foto)}</td>
       <td>${renderReviewBadge(row)}</td>

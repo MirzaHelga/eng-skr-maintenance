@@ -139,7 +139,7 @@ async function loadRiwayat() {
   let laporanQuery = supabase
     .from("laporan")
     .select(
-      "id, tanggal, jam_mulai, jam_selesai, shift, status, deskripsi, pic, review_status, reviewed_by, reject_reason, laporan_foto(foto_url)"
+      "id, tanggal, jam_mulai, jam_selesai, shift, status, deskripsi, sparepart, pic, review_status, reviewed_by, reject_reason, laporan_foto(foto_url)"
     )
     .eq("equipment_id", equipmentId)
     .order("tanggal", { ascending: false })
@@ -279,6 +279,7 @@ function timelineItemLaporan(row) {
           ${reviewClass ? `<span class="badge-status ${reviewClass}">${reviewLabel}</span>` : `<span class="rw-timeline-draft">${reviewLabel}</span>`}
         </div>
         <p class="rw-timeline-desc">${escapeHtml(row.deskripsi)}</p>
+        ${row.sparepart ? `<p class="rw-timeline-desc">Sparepart: ${escapeHtml(row.sparepart)}</p>` : ""}
         <p class="rw-timeline-pic">PIC: ${escapeHtml(row.pic || "-")}</p>
         ${rejectHtml}
         ${fotoHtml}

@@ -18,6 +18,7 @@ const inputJamSelesai = document.getElementById("input-jam-selesai");
 const errJam = document.getElementById("err-jam");
 const selectShift = document.getElementById("select-shift");
 const inputDeskripsi = document.getElementById("input-deskripsi");
+const inputSparepart = document.getElementById("input-sparepart");
 const selectPic = document.getElementById("select-pic");
 const inputFotoCamera = document.getElementById("input-foto-camera");
 const inputFotoGallery = document.getElementById("input-foto-gallery");
@@ -303,6 +304,7 @@ form.addEventListener("submit", async (e) => {
         shift: selectShift.value,
         status: selectedStatus,
         deskripsi: inputDeskripsi.value.trim(),
+        sparepart: inputSparepart.value.trim() || null,
         pic: picKaryawanNama(),
       })
       .select("id")

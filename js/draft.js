@@ -103,7 +103,7 @@ async function loadDrafts() {
   let laporanQuery = supabase
     .from("laporan")
     .select(
-      "id, tanggal, jam_mulai, jam_selesai, shift, status, deskripsi, pic, review_status, reviewed_by, reviewed_at, reject_reason, created_at, area:area_id(nama), mesin:mesin_id(nama), equipment:equipment_id(nama), laporan_foto(foto_url)"
+      "id, tanggal, jam_mulai, jam_selesai, shift, status, deskripsi, sparepart, pic, review_status, reviewed_by, reviewed_at, reject_reason, created_at, area:area_id(nama), mesin:mesin_id(nama), equipment:equipment_id(nama), laporan_foto(foto_url)"
     )
     .order("created_at", { ascending: false });
 
@@ -240,6 +240,7 @@ function renderLaporanCard(row) {
     <p class="draft-card-meta">${escapeHtml(row.area?.nama || "")} · ${row.tanggal || ""} ${jam} · ${row.shift || ""}</p>
     <span class="status-badge status-${statusClass}">${row.status || ""}</span>
     <p class="draft-card-desc">${escapeHtml(row.deskripsi || "")}</p>
+    ${row.sparepart ? `<p class="draft-card-desc">Sparepart: ${escapeHtml(row.sparepart)}</p>` : ""}
     <p class="draft-card-pic">PIC: ${escapeHtml(row.pic || "-")}</p>
     ${reviewFooter(row)}
     ${actionButtons("laporan", row)}
@@ -447,6 +448,7 @@ function openDetailLaporan(row) {
 
   detailBody.innerHTML = `
     <p class="pm-detail-uraian">${escapeHtml(row.deskripsi || "Tidak ada deskripsi.")}</p>
+    ${row.sparepart ? `<p class="pm-detail-uraian">Sparepart: ${escapeHtml(row.sparepart)}</p>` : ""}
   `;
 
   detailCatatan.innerHTML = "";

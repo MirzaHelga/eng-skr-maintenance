@@ -41,7 +41,7 @@ const DATA_TYPES = {
     table: "laporan",
     dateField: "tanggal",
     selectFields:
-      "tanggal, jam_mulai, jam_selesai, shift, status, deskripsi, pic, review_status, reviewed_by, reviewed_at, reject_reason, area:area_id(nama), mesin:mesin_id(nama), equipment:equipment_id(nama), laporan_foto(foto_url)",
+      "tanggal, jam_mulai, jam_selesai, shift, status, deskripsi, sparepart, pic, review_status, reviewed_by, reviewed_at, reject_reason, area:area_id(nama), mesin:mesin_id(nama), equipment:equipment_id(nama), laporan_foto(foto_url)",
     orderField: "tanggal",
     toRow: (row) => ({
       Tanggal: formatTanggal(row.tanggal),
@@ -53,6 +53,7 @@ const DATA_TYPES = {
       Equipment: row.equipment?.nama ?? "",
       Status: row.status ?? "",
       Deskripsi: row.deskripsi ?? "",
+      Sparepart: row.sparepart ?? "",
       PIC: row.pic ?? "",
       "Link Foto": (row.laporan_foto || []).map((f) => f.foto_url).join("; "),
       Review: REVIEW_LABEL[row.review_status] || row.review_status || "",
@@ -60,7 +61,7 @@ const DATA_TYPES = {
       "Tanggal Direview": formatTanggalWaktu(row.reviewed_at),
       "Alasan Ditolak": row.reject_reason ?? "",
     }),
-    colWidths: [11, 9, 9, 9, 16, 18, 20, 12, 45, 16, 30, 16, 18, 18, 30],
+    colWidths: [11, 9, 9, 9, 16, 18, 20, 12, 45, 30, 16, 30, 16, 18, 18, 30],
   },
   pm: {
     label: "Checklist PM",
