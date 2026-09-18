@@ -25,6 +25,9 @@ export const AUDIT_ACTION_LABEL = {
   reject: "Reject",
   hapus_data: "Hapus data permanen",
   export_data: "Export data",
+  panduan_tambah: "Tambah panduan",
+  panduan_ubah: "Ubah panduan",
+  panduan_hapus: "Hapus panduan",
 };
 
 export const AUDIT_ENTITY_LABEL = {
@@ -33,6 +36,7 @@ export const AUDIT_ENTITY_LABEL = {
   laporan: "Laporan Mesin",
   pm_checklist: "Checklist PM",
   production_checklist: "Checklist Production",
+  form_panduan: "Panduan form",
 };
 
 function toRow(entry) {
